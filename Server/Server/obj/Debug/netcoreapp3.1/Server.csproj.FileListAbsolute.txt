@@ -1,0 +1,13 @@
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Server\Server\bin\Debug\netcoreapp3.1\Server.exe
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Server\Server\bin\Debug\netcoreapp3.1\Server.deps.json
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Server\Server\bin\Debug\netcoreapp3.1\Server.runtimeconfig.json
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Server\Server\bin\Debug\netcoreapp3.1\Server.runtimeconfig.dev.json
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Server\Server\bin\Debug\netcoreapp3.1\Server.dll
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Server\Server\bin\Debug\netcoreapp3.1\Server.pdb
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Server\Server\obj\Debug\netcoreapp3.1\Server.csprojAssemblyReference.cache
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Server\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfoInputs.cache
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Server\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfo.cs
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Server\Server\obj\Debug\netcoreapp3.1\Server.csproj.CoreCompileInputs.cache
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Server\Server\obj\Debug\netcoreapp3.1\Server.dll
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Server\Server\obj\Debug\netcoreapp3.1\Server.pdb
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Server\Server\obj\Debug\netcoreapp3.1\Server.genruntimeconfig.cache
