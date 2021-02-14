@@ -37,7 +37,7 @@ namespace Client
                 out int lpNextSize, out uint lpMessageCount, out uint lpReadTimeout);
 
 
-        static IntPtr handleS;
+        static IntPtr handleS = new IntPtr(-1);
         static IntPtr handleC = new IntPtr(-1);
 
         public Form1()
@@ -47,71 +47,64 @@ namespace Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int command = 1;
-            string mail = command+"|2?Path1?Path2|"+getOptions();
-
-
-            CreateClientMail();
-            while (handleC.Equals(new IntPtr(-1)))
+            while (handleS == (new IntPtr(-1)))
             {
                 CreateServerConnection();
+                Console.WriteLine(handleS);
+                Thread.Sleep(100);
             }
-            textBox2.Text = handleC.ToString();
-            WriteMail(mail);
+            WriteMail("1|2?Path1?Path2|2?o?i?");
+        }
+        static void MainThread()
+        {
+            while (true)
+            {
+                string command = Console.ReadLine();
+                if (command.Equals("1"))
+                {
+                    Console.WriteLine("Conection...");
+                    while (handleS == (new IntPtr(-1)))
+                    {
+                        CreateServerConnection();
+                        Console.WriteLine(handleS);
+                        Thread.Sleep(100);
+                    }
+                    WriteMail("1|2?Path1?Path2|2?o?i?");
+                }
+
+            }
         }
 
-        string getOptions()
-        {
-            string str = "";
-            int count = 0;
-            for (int i = 0; i < 2; i++)
-            {
-                if (((RadioButton)panel1.Controls[i]).Checked == true)
-                {
-                    str += i + "?";
-                    count++;
-                }
-            }
-            for (int i = 0; i < 2; i++)
-            {
-                if (((RadioButton)panel2.Controls[i]).Checked == true)
-                {
-                    str += i + "?";
-                    count++;
-                }
-            }
-            return count+"?"+str;
-        }
-        void CreateClientMail()
+        static void CreateClientMail()
         {
             string path = "\\\\.\\mailslot\\clientmail";
             handleS = CreateMailslot(path, 0, uint.MaxValue, IntPtr.Zero);
-            
+
 
             if (!handleS.Equals(new IntPtr(-1)))
             {
-                textBox1.Text = "Created client mail.";
+                Console.WriteLine("Created client mail.");
             }
-            else textBox1.Text = "Not Created client mail.";
+
         }
 
-        void CreateServerConnection()
+        static void CreateServerConnection()
         {
-            string path = "\\\\.\\mailslot\\servermail";
-            handleC = CreateFile(path, FileAccess.Write,
+            string path = "\\\\.\\mailslot\\mailServer";
+            handleS = CreateFile(path, FileAccess.Write,
                 FileShare.Read, IntPtr.Zero, FileMode.OpenOrCreate, FileAttributes.Normal, IntPtr.Zero);
-           
 
-            if (!handleC.Equals(new IntPtr(-1)))
+
+            if (!handleS.Equals(new IntPtr(-1)))
             {
-                textBox1.Text = "Connected to the server.";
+                Console.WriteLine("Connected to the server.");
             }
-            
+
 
         }
         static string ReadMail()
         {
-            
+
             if (!handleC.Equals(new IntPtr(-1)))
             {
                 uint nBytesRead;
@@ -148,6 +141,7 @@ namespace Client
                 }
             }
         }
+
 
     }
 }

@@ -31,7 +31,7 @@ namespace Server
                 out int lpNextSize, out uint lpMessageCount, out uint lpReadTimeout);
 
 
-        static IntPtr handleS;
+        static IntPtr handleS = new IntPtr(-1);
         static IntPtr handleC = new IntPtr(-1);
 
         static void Main(string[] args)
@@ -43,13 +43,13 @@ namespace Server
                 string mail = ReadMail();
                 if (mail != "")
                 {
-                    Console.WriteLine(mail);
+                   
                     Quest quest = new Quest(int.Parse(mail.Split("|")[0]));
-                    for (int i = 1; i < int.Parse(mail.Split("|")[1].Split("?")[0]); i++)
+                    for (int i = 1; i <= int.Parse(mail.Split("|")[1].Split("?")[0]); i++)
                     {
                         quest.setPaths(mail.Split("|")[1].Split("?")[i]);
                     }
-                    for (int i = 1; i < int.Parse(mail.Split("|")[2].Split("?")[0]); i++)
+                    for (int i = 1; i <= int.Parse(mail.Split("|")[2].Split("?")[0]); i++)
                     {
                         quest.setOptions(mail.Split("|")[2].Split("?")[i]);
                     }
@@ -57,26 +57,7 @@ namespace Server
                 }
             }
         }
-        static void ThreadReadMail()
-        {
-            while (true)
-            {
-                string mail = ReadMail();
-                if (mail != "")
-                {
-                    Console.WriteLine(mail);
-                    Quest quest = new Quest(int.Parse(mail.Split("|")[0]));
-                    for (int i=1; i < int.Parse(mail.Split("|")[1].Split("?")[0]); i++) {
-                        quest.setPaths(mail.Split("|")[1].Split("?")[i]);
-                    }
-                    for (int i = 1; i < int.Parse(mail.Split("|")[2].Split("?")[0]); i++)
-                    {
-                        quest.setOptions(mail.Split("|")[2].Split("?")[i]);
-                    }
-                    quest.Show();
-                }
-            }
-        }
+     
 
         static void CreateServerMailslot()
         {

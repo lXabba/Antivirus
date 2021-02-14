@@ -10,3 +10,4 @@ D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Cl
 D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\obj\Debug\netcoreapp3.1\ClientConsole.dll
 D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\obj\Debug\netcoreapp3.1\ClientConsole.pdb
 D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\obj\Debug\netcoreapp3.1\ClientConsole.genruntimeconfig.cache
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\obj\Debug\netcoreapp3.1\ClientConsole.csprojAssemblyReference.cache

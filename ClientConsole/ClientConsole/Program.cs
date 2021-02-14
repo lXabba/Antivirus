@@ -30,7 +30,7 @@ namespace ClientConsole
                 out int lpNextSize, out uint lpMessageCount, out uint lpReadTimeout);
 
 
-        static IntPtr handleS;
+        static IntPtr handleS = new IntPtr(-1);
         static IntPtr handleC = new IntPtr(-1);
 
         static void Main(string[] args)
@@ -59,9 +59,10 @@ namespace ClientConsole
                     while (handleS == (new IntPtr(-1)))
                     {
                         CreateServerConnection();
+                        Console.WriteLine(handleS);
                         Thread.Sleep(100);
                     }
-                    WriteMail("1|2?Path1?Path2|o?i?");
+                    WriteMail("1|2?Path1?Path2|2?o?i?");
                 }
 
             }
@@ -82,7 +83,7 @@ namespace ClientConsole
 
         static void CreateServerConnection()
         {
-            string path = "\\\\.\\mailslot\\mailServer";
+            string path = "\\\\.\\mailslot\\mailServer"; 
             handleS = CreateFile(path, FileAccess.Write,
                 FileShare.Read, IntPtr.Zero, FileMode.OpenOrCreate, FileAttributes.Normal, IntPtr.Zero);
 
