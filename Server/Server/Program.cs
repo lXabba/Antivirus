@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Text;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace Server
 {
@@ -32,19 +33,29 @@ namespace Server
 
         static IntPtr handleS;
         static IntPtr handleC = new IntPtr(-1);
+
         static void Main(string[] args)
         {
             CreateServerMailslot();
-            Console.WriteLine("Create connection to client");
-            while (handleC.Equals(new IntPtr(-1)))
+         
+            while (true)
             {
-                CreateClientConnection();
-                
+                string mail = ReadMail();
+                if (mail != "")
+                {
+                    Console.WriteLine(mail);
+                    Quest quest = new Quest(int.Parse(mail.Split("|")[0]));
+                    for (int i = 1; i < int.Parse(mail.Split("|")[1].Split("?")[0]); i++)
+                    {
+                        quest.setPaths(mail.Split("|")[1].Split("?")[i]);
+                    }
+                    for (int i = 1; i < int.Parse(mail.Split("|")[2].Split("?")[0]); i++)
+                    {
+                        quest.setOptions(mail.Split("|")[2].Split("?")[i]);
+                    }
+                    quest.Show();
+                }
             }
-            Thread.Sleep(100);
-
-            Thread threadReadMail = new Thread(ThreadReadMail);
-            threadReadMail.Start();
         }
         static void ThreadReadMail()
         {
@@ -53,24 +64,27 @@ namespace Server
                 string mail = ReadMail();
                 if (mail != "")
                 {
-                    
-                   
+                    Console.WriteLine(mail);
+                    Quest quest = new Quest(int.Parse(mail.Split("|")[0]));
+                    for (int i=1; i < int.Parse(mail.Split("|")[1].Split("?")[0]); i++) {
+                        quest.setPaths(mail.Split("|")[1].Split("?")[i]);
+                    }
+                    for (int i = 1; i < int.Parse(mail.Split("|")[2].Split("?")[0]); i++)
+                    {
+                        quest.setOptions(mail.Split("|")[2].Split("?")[i]);
+                    }
+                    quest.Show();
                 }
             }
         }
 
         static void CreateServerMailslot()
         {
-            string path = "\\\\.\\mailslot\\servermail";
+            string path = "\\\\.\\mailslot\\mailServer";
             handleS = CreateMailslot(path, 0, uint.MaxValue, IntPtr.Zero);
             Console.WriteLine("ServerMailPath: " + path);
-
-            if (!handleS.Equals(new IntPtr(-1)))
-            {
-                Console.WriteLine("Server created.");
-            }
-            
-
+            Console.WriteLine(handleS);
+     
         }
         static void CreateClientConnection()
         {
@@ -81,7 +95,8 @@ namespace Server
 
             if (!handleC.Equals(new IntPtr(-1)))
             {
-                Console.WriteLine("Connected to the server.");
+                Console.WriteLine("Connected to the client.");
+                Console.WriteLine(handleC + "C");
             }
             
 
@@ -112,18 +127,50 @@ namespace Server
 
         static void WriteMail(string text)
         {
-            if (!handleS.Equals(new IntPtr(-1)))
+            if (!handleC.Equals(new IntPtr(-1)))
             {
                 byte[] buffer = Encoding.ASCII.GetBytes(text);
                 
                 uint dwwr;
                 System.Threading.NativeOverlapped temp = new System.Threading.NativeOverlapped();
-                if (WriteFile(handleS, buffer, (uint)buffer.Length, out dwwr, ref temp))
+                if (WriteFile(handleC, buffer, (uint)buffer.Length, out dwwr, ref temp))
                 {
                     Console.WriteLine("Write mail: " + text);
                 }
             }
         }
 
+    }
+    class Quest
+    {
+        int command;
+        List<string> paths;
+        List<string> options;
+
+        public Quest(int command){
+            this.command = command;
+            paths = new List<string>();
+            options = new List<string>();
+        }
+        public void setPaths(string path)
+        {
+            paths.Add(path);
+        }
+        public void setOptions(string option)
+        {
+            options.Add(option);
+        }
+        public void Show()
+        {
+            Console.WriteLine("command: " + command);
+            for (int i=0; i<paths.Count; i++)
+            {
+                Console.WriteLine("path: " + paths[i]);
+            }
+            for (int i = 0; i < options.Count; i++)
+            {
+                Console.WriteLine("option: " + options[i]);
+            }
+        }
     }
 }

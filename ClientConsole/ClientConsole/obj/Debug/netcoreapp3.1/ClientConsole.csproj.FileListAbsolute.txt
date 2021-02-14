@@ -1,0 +1,12 @@
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\bin\Debug\netcoreapp3.1\ClientConsole.exe
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\bin\Debug\netcoreapp3.1\ClientConsole.deps.json
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\bin\Debug\netcoreapp3.1\ClientConsole.runtimeconfig.json
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\bin\Debug\netcoreapp3.1\ClientConsole.runtimeconfig.dev.json
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\bin\Debug\netcoreapp3.1\ClientConsole.dll
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\bin\Debug\netcoreapp3.1\ClientConsole.pdb
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\obj\Debug\netcoreapp3.1\ClientConsole.AssemblyInfoInputs.cache
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\obj\Debug\netcoreapp3.1\ClientConsole.AssemblyInfo.cs
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\obj\Debug\netcoreapp3.1\ClientConsole.csproj.CoreCompileInputs.cache
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\obj\Debug\netcoreapp3.1\ClientConsole.dll
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\obj\Debug\netcoreapp3.1\ClientConsole.pdb
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\ClientConsole\ClientConsole\obj\Debug\netcoreapp3.1\ClientConsole.genruntimeconfig.cache
