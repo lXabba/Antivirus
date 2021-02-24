@@ -43,10 +43,13 @@ namespace Client
         public Form1()
         {
             InitializeComponent();
+            CreateClientMail();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             while (handleS == (new IntPtr(-1)))
             {
                 CreateServerConnection();
@@ -54,6 +57,24 @@ namespace Client
                 Thread.Sleep(100);
             }
             WriteMail("1|2?Path1?Path2|2?o?i?");
+
+            Thread thread = new Thread(ReadThread);
+            thread.Start();
+
+        }
+        void ReadThread()
+        {
+            while (true)
+            {
+                string mail = ReadMail();
+                if (mail != "")
+                {
+                    
+                    textBox1.Invoke(new Action(() => textBox1.Text = mail));
+                    break;
+                }
+
+            }
         }
         static void MainThread()
         {
@@ -78,10 +99,10 @@ namespace Client
         static void CreateClientMail()
         {
             string path = "\\\\.\\mailslot\\clientmail";
-            handleS = CreateMailslot(path, 0, uint.MaxValue, IntPtr.Zero);
+            handleC = CreateMailslot(path, 0, uint.MaxValue, IntPtr.Zero);
 
 
-            if (!handleS.Equals(new IntPtr(-1)))
+            if (!handleC.Equals(new IntPtr(-1)))
             {
                 Console.WriteLine("Created client mail.");
             }

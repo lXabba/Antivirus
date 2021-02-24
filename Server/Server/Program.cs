@@ -37,7 +37,9 @@ namespace Server
         static void Main(string[] args)
         {
             CreateServerMailslot();
-         
+            while (handleC.Equals(new IntPtr(-1)))
+                CreateClientConnection();
+
             while (true)
             {
                 string mail = ReadMail();
@@ -54,6 +56,8 @@ namespace Server
                         quest.setOptions(mail.Split("|")[2].Split("?")[i]);
                     }
                     quest.Show();
+                    
+                    WriteMail("Operation done");
                 }
             }
         }
@@ -64,7 +68,7 @@ namespace Server
             string path = "\\\\.\\mailslot\\mailServer";
             handleS = CreateMailslot(path, 0, uint.MaxValue, IntPtr.Zero);
             Console.WriteLine("ServerMailPath: " + path);
-            Console.WriteLine(handleS);
+           
      
         }
         static void CreateClientConnection()
