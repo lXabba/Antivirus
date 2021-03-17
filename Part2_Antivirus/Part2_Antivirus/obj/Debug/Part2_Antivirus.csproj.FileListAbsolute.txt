@@ -1,0 +1,7 @@
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Part2_Antivirus\Part2_Antivirus\obj\Debug\Part2_Antivirus.csprojAssemblyReference.cache
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Part2_Antivirus\Part2_Antivirus\obj\Debug\Part2_Antivirus.csproj.CoreCompileInputs.cache
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Part2_Antivirus\Part2_Antivirus\bin\Debug\Part2_Antivirus.exe.config
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Part2_Antivirus\Part2_Antivirus\bin\Debug\Part2_Antivirus.exe
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Part2_Antivirus\Part2_Antivirus\bin\Debug\Part2_Antivirus.pdb
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Part2_Antivirus\Part2_Antivirus\obj\Debug\Part2_Antivirus.exe
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\Part2_Antivirus\Part2_Antivirus\obj\Debug\Part2_Antivirus.pdb
