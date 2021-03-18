@@ -1,0 +1,10 @@
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\UI_Antivirus\UI_Antivirus\bin\Debug\UI_Antivirus.exe.config
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\UI_Antivirus\UI_Antivirus\bin\Debug\UI_Antivirus.exe
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\UI_Antivirus\UI_Antivirus\bin\Debug\UI_Antivirus.pdb
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\UI_Antivirus\UI_Antivirus\obj\Debug\UI_Antivirus.csprojAssemblyReference.cache
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\UI_Antivirus\UI_Antivirus\obj\Debug\UI_Antivirus.Form1.resources
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\UI_Antivirus\UI_Antivirus\obj\Debug\UI_Antivirus.Properties.Resources.resources
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\UI_Antivirus\UI_Antivirus\obj\Debug\UI_Antivirus.csproj.GenerateResource.cache
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\UI_Antivirus\UI_Antivirus\obj\Debug\UI_Antivirus.csproj.CoreCompileInputs.cache
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\UI_Antivirus\UI_Antivirus\obj\Debug\UI_Antivirus.exe
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\UI_Antivirus\UI_Antivirus\obj\Debug\UI_Antivirus.pdb
