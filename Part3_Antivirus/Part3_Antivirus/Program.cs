@@ -11,6 +11,8 @@ namespace Part3_Antivirus
         static void Main(string[] args)
         {
             Test();
+            DeleteNote("C:/NewPath");
+            Test();
             Console.Read();
             
         }
@@ -35,6 +37,26 @@ namespace Part3_Antivirus
             }
             sqliteConnection.Close();
           
+        }
+        static void AddNote(string path)
+        {
+            SqliteConnection sqliteConnection = new SqliteConnection("Data Source=D:\\3 семестр\\БазыДанных\\SystemBDTest.db");
+            sqliteConnection.Open();
+            var command = sqliteConnection.CreateCommand();
+            string str = @"INSERT INTO TEST (PATH) VALUES('" + path + "')";
+            command.CommandText = str;
+            command.ExecuteNonQuery();
+            sqliteConnection.Close();
+        }
+        static void DeleteNote(string path)
+        {
+            SqliteConnection sqliteConnection = new SqliteConnection("Data Source=D:\\3 семестр\\БазыДанных\\SystemBDTest.db");
+            sqliteConnection.Open();
+            var command = sqliteConnection.CreateCommand();
+            string str = @"DELETE FROM TEST WHERE PATH = ('"+path+"')";
+            command.CommandText = str;
+            command.ExecuteNonQuery();
+            sqliteConnection.Close();
         }
     }
 }
