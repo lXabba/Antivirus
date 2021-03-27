@@ -7,11 +7,11 @@ using Microsoft.Data.Sqlite;
 
 namespace AntivirusLibrary
 {
-    class DataBaseMethods
+    public static class DataBaseMethods
     {
         //соединение
         //передаюю стрингу 4 байта возвращает лист стрингов которые начинаются так
-        static SqliteConnection DataBaseConnection()
+        public static SqliteConnection DataBaseConnection()
         {
             SqliteConnection sqliteConnection = new SqliteConnection("Data Source=D:\\3 семестр\\БазыДанных\\SystemBDTest.db");
             sqliteConnection.Open();
@@ -19,12 +19,14 @@ namespace AntivirusLibrary
             return sqliteConnection;
         }
 
-        static void DataBaseCloseConnection(SqliteConnection sqliteConnection)
+       public static void DataBaseCloseConnection(SqliteConnection sqliteConnection)
         {
             sqliteConnection.Close();
         }
-        static List<string> DataBaseGetAllNotes(string tableName, SqliteConnection sqliteConnection)
+       public static List<string> DataBaseGetAllNotes(string tableName)
         {
+            SqliteConnection sqliteConnection = DataBaseConnection();
+
             var command = sqliteConnection.CreateCommand();
             command.CommandText = @"SELECT * FROM " + tableName;
 
@@ -34,15 +36,68 @@ namespace AntivirusLibrary
             {
                 for (int i = 0; reader.Read(); i++)
                 {
-                    temp = reader.GetString(1) + '-' + reader.GetString(2);
+                    for (int j = 0; j < reader.FieldCount; j++)
+                    {
+
+                        temp += reader.GetString(j) + " ";
+                    }
+                    temp.Trim();
                     allNotesList.Add(temp);
                 }
             }
 
+            DataBaseCloseConnection(sqliteConnection);
+
             return allNotesList;
         }
+        public static string DataBaseGetVirusType(string signature)
+        {
+            SqliteConnection sqliteConnection = DataBaseConnection();
 
-        static List<string> DataBaseFindNotesStartWith(string signature, List<string> allNotesList)
+            var command = sqliteConnection.CreateCommand();
+            command.CommandText = $"SELECT VIRUSTYPE FROM SIGNATURES WHERE SIGNATURE='{signature}'" ;
+
+            
+            string temp = "";
+            using (var reader = command.ExecuteReader())
+            {
+                for (int i = 0; reader.Read(); i++)
+                {
+
+                    temp = reader.GetString(0);
+                }
+            }
+
+            DataBaseCloseConnection(sqliteConnection);
+
+            return temp;
+        }
+        public static List<string> DataBaseGetOneField(string tableName, int indexField)
+        {
+
+            SqliteConnection sqliteConnection = DataBaseConnection();
+
+            var command = sqliteConnection.CreateCommand();
+            command.CommandText = @"SELECT * FROM " + tableName;
+
+            List<string> allNotesList = new List<string>();
+            string temp = "";
+            using (var reader = command.ExecuteReader())
+            {
+                for (int i = 0; reader.Read(); i++)
+                {
+                   
+                    temp = reader.GetString(indexField);
+                   
+                    allNotesList.Add(temp);
+                }
+            }
+
+            DataBaseCloseConnection(sqliteConnection);
+
+            return allNotesList;
+        }
+       public static List<string> DataBaseFindNotesStartWith(string signature, List<string> allNotesList)
         {
             List<string> findedList = new List<string>();
 
@@ -57,21 +112,28 @@ namespace AntivirusLibrary
             return findedList;
         }
 
-        static void AddNote(string path, SqliteConnection sqliteConnection)
+       public static void AddNote(string path, string tableName)
         {
+            SqliteConnection sqliteConnection = DataBaseConnection();
+
             var command = sqliteConnection.CreateCommand();
-            string str = @"INSERT INTO TEST (PATH) VALUES('" + path + "')";
+            string str = $"INSERT INTO {tableName} (PATH) VALUES('{path}')";
             command.CommandText = str;
             command.ExecuteNonQuery();
+
+            DataBaseCloseConnection(sqliteConnection);
             
         }
-        static void DeleteNote(string path, SqliteConnection sqliteConnection)
+       public static void DeleteNote(string path, string tableName)
         {
+            SqliteConnection sqliteConnection = DataBaseConnection();
+
             var command = sqliteConnection.CreateCommand();
-            string str = @"DELETE FROM TEST WHERE PATH = ('" + path + "')";
+            string str = $"DELETE FROM {tableName} WHERE PATH = ('{path}')";
             command.CommandText = str;
             command.ExecuteNonQuery();
-           
+
+            DataBaseCloseConnection(sqliteConnection);
         }
 
     }
