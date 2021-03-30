@@ -1,0 +1,7 @@
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\TestConsoleServer\TestConsoleServer\bin\Debug\TestConsoleServer.exe.config
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\TestConsoleServer\TestConsoleServer\bin\Debug\TestConsoleServer.exe
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\TestConsoleServer\TestConsoleServer\bin\Debug\TestConsoleServer.pdb
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\TestConsoleServer\TestConsoleServer\obj\Debug\TestConsoleServer.csprojAssemblyReference.cache
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\TestConsoleServer\TestConsoleServer\obj\Debug\TestConsoleServer.csproj.CoreCompileInputs.cache
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\TestConsoleServer\TestConsoleServer\obj\Debug\TestConsoleServer.exe
+D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\TestConsoleServer\TestConsoleServer\obj\Debug\TestConsoleServer.pdb

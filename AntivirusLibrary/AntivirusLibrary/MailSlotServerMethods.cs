@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace AntivirusLibrary
 {
-    class MailSlotServerMethods
+    public static class MailSlotServerMethods
     {
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         static extern IntPtr CreateMailslot(string lpName, uint nMaxMessageSize, uint lReadTimeout, IntPtr lpSecurityAttributes);
@@ -32,7 +32,24 @@ namespace AntivirusLibrary
 
         static IntPtr handleS = new IntPtr(-1);
         static IntPtr handleC = new IntPtr(-1);
-        static void ServerReadThread()
+
+        enum Command {
+        START_SCAN_DIR = 0,
+        DELETE_FILES = 1,
+        QUARANTINE_FILE = 2,
+        IGNOR_FILE = 3,
+        START_MONITORING = 4,
+        STOP_MONITORING = 5,
+        GET_SCAN_STATUS = 6,
+        GET_SCAN_PROGRESS = 7,
+
+            }
+
+        public static int FilesForScanCount = 0;
+        public static bool ScanStatus = false;
+
+      public  static List<MonitoringMethods> listMonitoring = new List<MonitoringMethods>();
+       public static void ServerReadThread()
         {
             
             while (true)
@@ -52,11 +69,181 @@ namespace AntivirusLibrary
                     }
                     quest.Show();
 
-                    WriteMail("Operation done");
+                    switch (quest.command)
+                    {
+                        case 0:
+                            DataBaseMethods.DataBaseDeleteAllNotes("Scan");
+                            StartScanDir(quest);
+                            break;
+                        case 1:
+                            DeleteFiles(quest);
+                            break;
+                        case 2:
+                            QuarantineFiles(quest);
+                            break;
+                        case 3:
+                            IgnorFiles(quest);
+                            break;
+                        case 4:
+                            StartMonitoring(quest);
+                            break;
+                        case 5:
+                            StopMonitoring(quest);
+                            break;
+                        case 6:
+                            var status = GetScanStatus();
+                            WriteMail("Status_" + status);
+                            break;
+                        case 7:
+                            GetScanProgress();
+
+                            break;
+                        case 8:
+                            break;
+                        default:
+                            break;
+                    }
+
+                    
                 }
             }
         }
-        static void CreateServerMailslot()
+
+       private static void StartScanDir(Quest quest)
+        {
+            List<string> signatures = AntivirusLibrary.DataBaseMethods.DataBaseGetOneField("Signatures", 1);
+            List<string> paths = quest.getPaths();
+            List<string> filesToScan = new List<string>();
+
+            foreach (string dir in paths)
+            {
+                filesToScan.AddRange(AntivirusLibrary.DirectoryAndFileMethods.GetAllFiles(dir));
+            }
+            filesToScan = AntivirusLibrary.DirectoryAndFileMethods.FilesForScan(filesToScan);
+            FilesForScanCount = filesToScan.Count;
+
+            foreach (string file in filesToScan)
+            {
+                var c = AntivirusLibrary.ScanMethods.GetScanBuffer(file);
+                AntivirusLibrary.ScanMethods.ScanToQueue(c, signatures, file);
+            }
+
+            while (FilesForScanCount != 0)
+            {
+
+            }
+
+            
+            WriteMail("Operation done");
+            ScanStatus = true;
+
+        }
+
+       private static void DeleteFiles(Quest quest)
+        {
+            List<string> paths = quest.getPaths();
+
+            foreach (string file in paths)
+            {
+                var monitoringObject = GetMonitoringObject(file);
+                if (monitoringObject != null)
+                {
+                    monitoringObject.StopMonitoring();
+                    AntivirusLibrary.DataBaseMethods.DataBaseDeleteNote(file, "Monitoring");
+                }
+
+                AntivirusLibrary.DataBaseMethods.DataBaseDeleteNote(file, "Quarantine");
+                AntivirusLibrary.DataBaseMethods.DataBaseDeleteNote(file, "Schedule");
+
+                AntivirusLibrary.FileManipulation.FileManipulationDelete(file);
+            }
+        }
+
+       private static void QuarantineFiles(Quest quest)
+        {
+            List<string> paths = quest.getPaths();
+
+            foreach (string file in paths)
+            {
+                string date = DateTime.Now.ToString("MM/dd/yyyy");
+                string time = DateTime.Now.ToString("H:mm");
+                AntivirusLibrary.FileManipulation.FileManipulationQuarantine(file);
+                AntivirusLibrary.DataBaseMethods.AddNote("QUARANTINE", "PATH,VIRUSTYPE,DATE,TIME", $"'{file}','virus','{date}','{time}'");
+            }
+        }
+
+      private static void IgnorFiles(Quest quest)
+        {
+            List<string> paths = quest.getPaths();
+
+            foreach (string file in paths)
+            {
+                AntivirusLibrary.FileManipulation.FileManipulationIgnor(file);
+                var monitoringObject = GetMonitoringObject(file);
+                if (monitoringObject != null)
+                {
+                    monitoringObject.StopMonitoring();
+                    AntivirusLibrary.DataBaseMethods.DataBaseDeleteNote(file, "Monitoring");
+                }
+
+                AntivirusLibrary.DataBaseMethods.DataBaseDeleteNote(file, "Quarantine");
+                AntivirusLibrary.DataBaseMethods.DataBaseDeleteNote(file, "Schedule");
+            }
+        }
+
+      private  static void StartMonitoring(Quest quest)
+        {
+            List<string> paths = quest.getPaths();
+
+            foreach (string file in paths)
+            {
+                listMonitoring.Add(new MonitoringMethods(file));
+                AntivirusLibrary.DataBaseMethods.AddNote("MONITORING", "PATH", $"'{file}'");
+            }
+        }
+        public static void StartMonitoringServer()
+        {
+            List<string> paths = DataBaseMethods.DataBaseGetOneField("Monitoring",1);
+
+            foreach (string file in paths)
+            {
+                Console.WriteLine(file);
+                listMonitoring.Add(new MonitoringMethods(file));
+                
+                
+            }
+        }
+        
+        private static void StopMonitoring(Quest quest)
+        {
+            List<string> paths = quest.getPaths();
+           
+            foreach (string file in paths)
+            {
+                var monitoringObject = GetMonitoringObject(file);
+                if (monitoringObject != null) monitoringObject.StopMonitoring();
+            }
+
+        }
+
+      private  static bool GetScanStatus()
+        {
+            return ScanStatus;
+        }
+      private  static string GetScanProgress()
+        {
+            return (AntivirusLibrary.ScanMethods.EndScan / FilesForScanCount * 100) + "%";
+        }
+
+        private static MonitoringMethods GetMonitoringObject(string path)
+        {
+            for (int i=0; i<listMonitoring.Count; i++)
+            {
+                if (listMonitoring[i].path.Equals(path)) return listMonitoring[i];
+            }
+            return null;
+        }
+      public  static void CreateServerMailslot()
         {
             string path = "\\\\.\\mailslot\\mailServer";
             handleS = CreateMailslot(path, 0, uint.MaxValue, IntPtr.Zero);
@@ -64,12 +251,17 @@ namespace AntivirusLibrary
 
 
         }
-        static void CreateClientConnection()
+       public static void CreateClientConnection()
         {
+            handleC = new IntPtr(-1);
             string path = "\\\\.\\mailslot\\clientmail";
-            handleC = CreateFile(path, FileAccess.Write,
-                FileShare.Read, IntPtr.Zero, FileMode.OpenOrCreate, FileAttributes.Normal, IntPtr.Zero);
 
+            while (handleC.Equals(new IntPtr(-1)))
+            {
+                
+                handleC = CreateFile(path, FileAccess.Write,
+                    FileShare.Read, IntPtr.Zero, FileMode.OpenOrCreate, FileAttributes.Normal, IntPtr.Zero);
+            }
 
             if (!handleC.Equals(new IntPtr(-1)))
             {
@@ -79,7 +271,7 @@ namespace AntivirusLibrary
 
 
         }
-        static string ReadMail()
+      private  static string ReadMail()
         {
             if (!handleS.Equals(new IntPtr(-1)))
             {
@@ -103,8 +295,9 @@ namespace AntivirusLibrary
             return "";
         }
 
-        static void WriteMail(string text)
+      public  static void WriteMail(string text)
         {
+            CreateClientConnection();
             if (!handleC.Equals(new IntPtr(-1)))
             {
                 byte[] buffer = Encoding.ASCII.GetBytes(text);
@@ -117,11 +310,13 @@ namespace AntivirusLibrary
                 }
             }
         }
+
+
     }
 
     class Quest
     {
-        int command;
+        public int command;
         List<string> paths;
         List<string> options;
 
@@ -138,6 +333,10 @@ namespace AntivirusLibrary
         public void setOptions(string option)
         {
             options.Add(option);
+        }
+        public List<string> getPaths()
+        {
+            return paths;
         }
         public void Show()
         {

@@ -73,7 +73,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBaseMethods.cs" />
+    <Compile Include="DataReport.cs" />
+    <Compile Include="DataReportMonitoring.cs" />
     <Compile Include="DirectoryAndFileMethods.cs" />
+    <Compile Include="FileManipulation.cs" />
     <Compile Include="MailSlotClientMethods.cs" />
     <Compile Include="MailSlotServerMethods.cs" />
     <Compile Include="MonitoringMethods.cs" />

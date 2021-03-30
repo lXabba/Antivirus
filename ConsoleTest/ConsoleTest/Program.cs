@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AntivirusLibrary;
+using System.Threading;
 
 namespace ConsoleTest
 {
@@ -11,11 +12,19 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            var a = AntivirusLibrary.ScanMethods.GetScanBuffer(@"D:\3 семестр\Низкоуровневое\Антивирус\Test\pe-file.exe");
-            List<string> b = AntivirusLibrary.DataBaseMethods.DataBaseGetOneField("Signatures", 1);
-            
-            var r = AntivirusLibrary.ScanMethods.Scan(a, b);
-            Console.WriteLine(r);
+            //Thread monitorThread = new Thread(MailSlotServerMethods.StartMonitoringServer);
+            //monitorThread.Start();
+            MailSlotServerMethods.StartMonitoringServer();
+            AntivirusLibrary.MailSlotServerMethods.CreateServerMailslot();
+            Thread readThread = new Thread(AntivirusLibrary.MailSlotServerMethods.ServerReadThread);
+            readThread.Start();
+            while (true)
+            {
+
+            }
+
+
+
             Console.Read();
         }
     }

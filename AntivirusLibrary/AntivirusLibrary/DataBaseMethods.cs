@@ -39,10 +39,11 @@ namespace AntivirusLibrary
                     for (int j = 0; j < reader.FieldCount; j++)
                     {
 
-                        temp += reader.GetString(j) + " ";
+                        temp += reader.GetString(j) + '?';
                     }
                     temp.Trim();
                     allNotesList.Add(temp);
+                    temp = "";
                 }
             }
 
@@ -97,7 +98,32 @@ namespace AntivirusLibrary
 
             return allNotesList;
         }
-       public static List<string> DataBaseFindNotesStartWith(string signature, List<string> allNotesList)
+        public static string DataBaseGetOneFieldIn(string tableName, int indexField, string where)
+        {
+
+            SqliteConnection sqliteConnection = DataBaseConnection();
+
+            var command = sqliteConnection.CreateCommand();
+            command.CommandText = $"SELECT * FROM {tableName} WHERE {where}";
+
+            
+            string temp = "";
+            using (var reader = command.ExecuteReader())
+            {
+                for (int i = 0; reader.Read(); i++)
+                {
+
+                    temp = reader.GetString(indexField);
+
+                   
+                }
+            }
+
+            DataBaseCloseConnection(sqliteConnection);
+
+            return temp;
+        }
+        public static List<string> DataBaseFindNotesStartWith(string signature, List<string> allNotesList)
         {
             List<string> findedList = new List<string>();
 
@@ -112,24 +138,48 @@ namespace AntivirusLibrary
             return findedList;
         }
 
-       public static void AddNote(string path, string tableName)
+       public static void AddNote(string tableName, string columns, string values)
         {
             SqliteConnection sqliteConnection = DataBaseConnection();
 
             var command = sqliteConnection.CreateCommand();
-            string str = $"INSERT INTO {tableName} (PATH) VALUES('{path}')";
+            string str = $"INSERT INTO {tableName} ({columns}) VALUES ({values})";
             command.CommandText = str;
             command.ExecuteNonQuery();
 
             DataBaseCloseConnection(sqliteConnection);
             
         }
-       public static void DeleteNote(string path, string tableName)
+       public static void DataBaseDeleteNote(string path, string tableName)
         {
             SqliteConnection sqliteConnection = DataBaseConnection();
 
             var command = sqliteConnection.CreateCommand();
             string str = $"DELETE FROM {tableName} WHERE PATH = ('{path}')";
+            command.CommandText = str;
+            command.ExecuteNonQuery();
+
+            DataBaseCloseConnection(sqliteConnection);
+        }
+
+        public static void DataBaseDeleteAllNotes(string tableName)
+        {
+            SqliteConnection sqliteConnection = DataBaseConnection();
+
+            var command = sqliteConnection.CreateCommand();
+            string str = $"DELETE FROM {tableName}";
+            command.CommandText = str;
+            command.ExecuteNonQuery();
+
+            DataBaseCloseConnection(sqliteConnection);
+        }
+
+        public static void DataBaseUpdate(string tableName, string updateStr)
+        {
+            SqliteConnection sqliteConnection = DataBaseConnection();
+
+            var command = sqliteConnection.CreateCommand();
+            string str = $"UPDATE {tableName} SET {updateStr}";
             command.CommandText = str;
             command.ExecuteNonQuery();
 

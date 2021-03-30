@@ -7,74 +7,47 @@ using System.IO;
 
 namespace AntivirusLibrary
 {
-    class MonitoringMethods
+    public class MonitoringMethods
     {
-        static void Monitoring(String path)
+        FileSystemWatcher watcher;
+        public string path;
+        public MonitoringMethods(String path)
         {
-            var watcher = new FileSystemWatcher(path);
+            this.path = path;
+            watcher = new FileSystemWatcher(path);
 
-            watcher.NotifyFilter = NotifyFilters.Attributes
-                                 | NotifyFilters.CreationTime
-                                 | NotifyFilters.DirectoryName
-                                 | NotifyFilters.FileName
-                                 | NotifyFilters.LastAccess
-                                 | NotifyFilters.LastWrite
-                                 | NotifyFilters.Security
-                                 | NotifyFilters.Size;
+            watcher.NotifyFilter = NotifyFilters.LastWrite;
 
             watcher.Changed += OnChanged;
-            watcher.Created += OnCreated;
-            watcher.Deleted += OnDeleted;
-            watcher.Renamed += OnRenamed;
-            watcher.Error += OnError;
+            
 
 
             watcher.IncludeSubdirectories = true;
             watcher.EnableRaisingEvents = true;
 
             Console.WriteLine("Press enter to exit.");
-            Console.ReadLine();
+           
         }
-
-        private static void OnChanged(object sender, FileSystemEventArgs e)
+        public void StopMonitoring()
+        {
+            watcher.Changed -= OnChanged;
+        }
+        
+        private void OnChanged(object sender, FileSystemEventArgs e)
         {
             if (e.ChangeType != WatcherChangeTypes.Changed)
             {
                 return;
             }
             Console.WriteLine($"Changed: {e.FullPath}");
-        }
-
-        private static void OnCreated(object sender, FileSystemEventArgs e)
-        {
-            string value = $"Created: {e.FullPath}";
-            Console.WriteLine(value);
-        }
-
-        private static void OnDeleted(object sender, FileSystemEventArgs e) =>
-            Console.WriteLine($"Deleted: {e.FullPath}");
-
-        private static void OnRenamed(object sender, RenamedEventArgs e)
-        {
-            Console.WriteLine($"Renamed:");
-            Console.WriteLine($"    Old: {e.OldFullPath}");
-            Console.WriteLine($"    New: {e.FullPath}");
-        }
-
-        private static void OnError(object sender, ErrorEventArgs e) =>
-            PrintException(e.GetException());
-
-        private static void PrintException(Exception ex)
-        {
-            if (ex != null)
+            if (DirectoryAndFileMethods.GetFileType(e.FullPath).Equals("pe"))
             {
-                Console.WriteLine($"Message: {ex.Message}");
-                Console.WriteLine("Stacktrace:");
-                Console.WriteLine(ex.StackTrace);
-                Console.WriteLine();
-                PrintException(ex.InnerException);
+                List<string> signatures = AntivirusLibrary.DataBaseMethods.DataBaseGetOneField("Signatures", 1);
+                ScanMethods.Scan(ScanMethods.GetScanBuffer(e.FullPath), signatures,e.FullPath ,path);
             }
+            
         }
+
 
     }
 }
