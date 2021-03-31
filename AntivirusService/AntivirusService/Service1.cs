@@ -48,28 +48,12 @@ namespace AntivirusService
 
         protected override void OnStart(string[] args)
         {
-            //AntivirusLibrary.SheduleScan.StartTimer();
+            AntivirusLibrary.SheduleScan.StartTimer();
             //AntivirusLibrary.MailSlotServerMethods.CreateServerMailslot();
-            //Thread readThread = new Thread(AntivirusLibrary.MailSlotServerMethods.ServerReadThread);
-            //readThread.Start();
+            
 
-
-
-            if (File.Exists("D:\\log.txt")) File.Delete("D:\\log.txt");
-            File.Create("D:\\log.txt").Close();
-           
-            //WriteFile("DeleteFile");
-            //WriteFile(File.Exists("\\\\.\\mailslot\\clientmail").ToString());
-           
-            //CreateServerMailslot();
-            //WriteFile("createMailSlot");
-            isRun = true;
-
-            //Thread thread = new Thread(Writting);
-            //thread.Start();
-            //WriteFile("newThread");
-
-            Thread thread = new Thread(SocketThread);
+            AntivirusLibrary.SocketServerMethods.isRun = true;
+            Thread thread = new Thread(AntivirusLibrary.SocketServerMethods.SocketThread);
             thread.Start();
 
             
@@ -104,7 +88,7 @@ namespace AntivirusService
         }
         protected override void OnStop()
         {
-            isRun = false;
+            AntivirusLibrary.SocketServerMethods.isRun = false;
         }
 
         public static void WriteFile(string str)

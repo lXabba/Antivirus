@@ -35,30 +35,11 @@ namespace UI_Antivirus
             
            handleC = AntivirusLibrary.MailSlotClientMethods.CreateClientMail();
 
+
         }
 
         private void ScanPanelButton_Click(object sender, EventArgs e)
         {
-            //foreach (var temp in lformElementsScans)
-            //{
-            //    temp.DeletePanel(flowLayoutPanelScan);
-            //}
-            //List<string> lscanReport = AntivirusLibrary.DataBaseMethods.DataBaseGetAllNotes("Scan");
-            //Console.WriteLine("lscan");
-            //foreach (var scanFile in lscanReport)
-            //{
-
-            //    var strScanTemp = new AntivirusLibrary.DataReport(scanFile);
-            //    var panelTemp = new FormElementsScan(flowLayoutPanelScan);
-
-            //    panelTemp.PathScanTextBox.Text = strScanTemp.path;
-            //    panelTemp.ResultScanLabel.Text = strScanTemp.virusType;
-            //    panelTemp.DataScanLabel.Text = strScanTemp.date;
-            //    panelTemp.TimeScanLabel.Text = strScanTemp.time;
-            //    lformElementsScans.Add(panelTemp);
-
-            //}
-
             OffAll();
             ScanPanel.Visible = true;
             ScanPanel.Location = new System.Drawing.Point(179, 13);
@@ -86,11 +67,9 @@ namespace UI_Antivirus
           
             temp = temp.Substring(0, temp.Length - 1);
             
-            AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
-            AntivirusLibrary.MailSlotClientMethods.SendQuest($"1|{count}?{temp}|0");
-            
-
-
+            //AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
+            //AntivirusLibrary.MailSlotClientMethods.SendQuest($"1|{count}?{temp}|0");
+            AntivirusLibrary.SocketClientMethods.SocketClientWriteMessage($"1|{count}?{temp}|0");
 
         }
 
@@ -132,7 +111,7 @@ namespace UI_Antivirus
             {
                 string mail = AntivirusLibrary.MailSlotClientMethods.ReadMail(handleC);
 
-
+                if (mail.StartsWith("Monitor")) Console.WriteLine(mail);
                 if (mail.Equals("Operation done"))
                 {
 
@@ -271,8 +250,9 @@ namespace UI_Antivirus
                 {
                     string[] files = Directory.GetFiles(fbd.SelectedPath);
                     Console.WriteLine("BeginServer");
-                    AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
-                    AntivirusLibrary.MailSlotClientMethods.SendQuest($"0|1?{fbd.SelectedPath}|0");
+                    //AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
+                    //AntivirusLibrary.MailSlotClientMethods.SendQuest($"0|1?{fbd.SelectedPath}|0");
+                    AntivirusLibrary.SocketClientMethods.SocketClientWriteMessage($"0|1?{fbd.SelectedPath}|0");
                     Console.WriteLine("Sended");
                 }
             }
@@ -308,8 +288,8 @@ namespace UI_Antivirus
             
             if (count != 0)
             {
-                AntivirusLibrary.MailSlotClientMethods.SendQuest($"2|{count}?{temp}|0");
-                
+                //AntivirusLibrary.MailSlotClientMethods.SendQuest($"2|{count}?{temp}|0");
+                AntivirusLibrary.SocketClientMethods.SocketClientWriteMessage($"2|{count}?{temp}|0");
             }
         }
 
@@ -323,8 +303,9 @@ namespace UI_Antivirus
                 {
                     string filePath = openFileDialog.FileName;
                     if (filePath.Equals(null) || filePath.Equals("")) return;
-                    AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
-                    AntivirusLibrary.MailSlotClientMethods.SendQuest($"0|1?{filePath}|0");
+                    //AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
+                    //AntivirusLibrary.MailSlotClientMethods.SendQuest($"0|1?{filePath}|0");
+                    AntivirusLibrary.SocketClientMethods.SocketClientWriteMessage($"0|1?{filePath}|0");
                 }
             }
         }
@@ -420,8 +401,7 @@ namespace UI_Antivirus
 
             temp = temp.Substring(0, temp.Length - 1);
 
-            AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
-            AntivirusLibrary.MailSlotClientMethods.SendQuest($"1|{count}?{temp}|0");
+            AntivirusLibrary.SocketClientMethods.SocketClientWriteMessage($"1|{count}?{temp}|0");
 
         }
 
@@ -454,19 +434,22 @@ namespace UI_Antivirus
         private void button11_Click(object sender, EventArgs e)
         {
             operationDone = true;
-            AntivirusLibrary.MailSlotClientMethods.SendQuest($"8|0|0");
+            AntivirusLibrary.SocketClientMethods.SocketClientWriteMessage($"8|0|0");
+
         }
 
         private void StartMonitoring_Click(object sender, EventArgs e)
         {
-            AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
-            AntivirusLibrary.MailSlotClientMethods.SendQuest($"4|0|0");
+            //AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
+            //AntivirusLibrary.MailSlotClientMethods.SendQuest($"4|0|0");
+            AntivirusLibrary.SocketClientMethods.SocketClientWriteMessage($"4|0|0");
         }
 
         private void StopButton_Click(object sender, EventArgs e)
         {
-            AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
-            AntivirusLibrary.MailSlotClientMethods.SendQuest($"5|0|0");
+            //AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
+            //AntivirusLibrary.MailSlotClientMethods.SendQuest($"5|0|0");
+            AntivirusLibrary.SocketClientMethods.SocketClientWriteMessage($"5|0|0");
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -544,8 +527,9 @@ namespace UI_Antivirus
 
             temp = temp.Substring(0, temp.Length - 1);
 
-            AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
-            AntivirusLibrary.MailSlotClientMethods.SendQuest($"2|{count}?{temp}|0");
+            //AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
+            //AntivirusLibrary.MailSlotClientMethods.SendQuest($"2|{count}?{temp}|0");
+            AntivirusLibrary.SocketClientMethods.SocketClientWriteMessage($"2|{count}?{temp}|0");
 
             foreach (var temps in lformElementsShedulesAfterScan)
             {
@@ -585,8 +569,9 @@ namespace UI_Antivirus
 
             temp = temp.Substring(0, temp.Length - 1);
 
-            AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
-            AntivirusLibrary.MailSlotClientMethods.SendQuest($"3|{count}?{temp}|0");
+            //AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
+            //AntivirusLibrary.MailSlotClientMethods.SendQuest($"3|{count}?{temp}|0");
+            AntivirusLibrary.SocketClientMethods.SocketClientWriteMessage($"3|{count}?{temp}|0");
 
             foreach (var temps in lformElementsShedulesAfterScan)
             {
@@ -658,9 +643,9 @@ namespace UI_Antivirus
 
             temp = temp.Substring(0, temp.Length - 1);
 
-            AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
-            AntivirusLibrary.MailSlotClientMethods.SendQuest($"1|{count}?{temp}|0");
-
+            //AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
+            //AntivirusLibrary.MailSlotClientMethods.SendQuest($"1|{count}?{temp}|0");
+            AntivirusLibrary.SocketClientMethods.SocketClientWriteMessage($"1|{count}?{temp}|0");
         }
 
         private void QuarantineSelectAll_Click(object sender, EventArgs e)
@@ -693,8 +678,9 @@ namespace UI_Antivirus
 
             temp = temp.Substring(0, temp.Length - 1);
 
-            AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
-            AntivirusLibrary.MailSlotClientMethods.SendQuest($"9|{count}?{temp}|0");
+            //AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
+            //AntivirusLibrary.MailSlotClientMethods.SendQuest($"9|{count}?{temp}|0");
+            AntivirusLibrary.SocketClientMethods.SocketClientWriteMessage($"9|{count}?{temp}|0");
         }
     }
 }

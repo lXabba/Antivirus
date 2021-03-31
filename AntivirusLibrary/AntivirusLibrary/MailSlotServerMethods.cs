@@ -116,6 +116,68 @@ namespace AntivirusLibrary
                 }
             }
         }
+        public static void CheckMessage(string mail)
+        {
+            
+            if (mail != "")
+            {
+
+                Quest quest = new Quest(int.Parse(mail.Split('|')[0]));
+
+                for (int i = 1; i <= int.Parse(mail.Split('|')[1].Split('?')[0]); i++)
+                {
+                    quest.setPaths(mail.Split('|')[1].Split('?')[i]);
+                    Console.WriteLine(mail.Split('|')[1]);
+                }
+                for (int i = 1; i <= int.Parse(mail.Split('|')[2].Split('?')[0]); i++)
+                {
+                    quest.setOptions(mail.Split('|')[2].Split('?')[i]);
+                }
+                quest.Show();
+
+                switch (quest.command)
+                {
+                    case 0:
+                        DataBaseMethods.DataBaseDeleteAllNotes("Scan");
+                        StartScanDir(quest);
+                        break;
+                    case 1:
+                        DeleteFiles(quest);
+                        break;
+                    case 2:
+                        QuarantineFiles(quest);
+                        break;
+                    case 3:
+                        IgnorFiles(quest);
+                        break;
+                    case 4:
+                        StartMonitoring(quest);
+                        break;
+                    case 5:
+                        StopMonitoring();
+                        break;
+                    case 6:
+                        var status = GetScanStatus();
+                       // WriteMail("Status_" + status);
+                        break;
+                    case 7:
+                        GetScanProgress();
+
+                        break;
+                    case 8:
+                        ScanMethods.StopScan();
+                        break;
+
+                    case 9:
+                        Recover(quest);
+                        break;
+                    default:
+                        break;
+                }
+
+
+            }
+        }
 
        private static void Recover(Quest quest)
         {
@@ -225,9 +287,10 @@ namespace AntivirusLibrary
 
       private  static void StartMonitoring(Quest quest)
         {
-            //Thread monitorThread = new Thread(MailSlotServerMethods.StartMonitoringServer);
-            //monitorThread.Start();
-            MailSlotServerMethods.StartMonitoringServer();
+            Thread monitorThread = new Thread(MailSlotServerMethods.StartMonitoringServer);
+            monitorThread.Start();
+            //MailSlotServerMethods.StartMonitoringServer();
+            WriteMail("Monitoring started");
         }
         public static void StartMonitoringServer()
         {
@@ -245,7 +308,7 @@ namespace AntivirusLibrary
         private static void StopMonitoring()
         {
             List<string> paths = DataBaseMethods.DataBaseGetOneField("Monitoring", 1);
-
+            WriteMail("Monitoring stoped");
             foreach (string file in paths)
             {
                 var monitoringObject = GetMonitoringObject(file);

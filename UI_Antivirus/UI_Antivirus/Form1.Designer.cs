@@ -31,6 +31,7 @@ namespace UI_Antivirus
         {
             this.ScanPanelButton = new System.Windows.Forms.Button();
             this.ScanPanel = new System.Windows.Forms.Panel();
+            this.button12 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button11 = new System.Windows.Forms.Button();
             this.SendToQuarantine = new System.Windows.Forms.Button();
@@ -123,7 +124,7 @@ namespace UI_Antivirus
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.button12 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.ScanPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.flowLayoutPanelScan.SuspendLayout();
@@ -157,10 +158,10 @@ namespace UI_Antivirus
             // ScanPanelButton
             // 
             this.ScanPanelButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ScanPanelButton.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ScanPanelButton.Location = new System.Drawing.Point(13, 13);
+            this.ScanPanelButton.Font = new System.Drawing.Font("Aznauri Square", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ScanPanelButton.Location = new System.Drawing.Point(3, 13);
             this.ScanPanelButton.Name = "ScanPanelButton";
-            this.ScanPanelButton.Size = new System.Drawing.Size(160, 63);
+            this.ScanPanelButton.Size = new System.Drawing.Size(160, 48);
             this.ScanPanelButton.TabIndex = 0;
             this.ScanPanelButton.Text = "Сканирование";
             this.ScanPanelButton.UseVisualStyleBackColor = false;
@@ -178,6 +179,18 @@ namespace UI_Antivirus
             this.ScanPanel.Name = "ScanPanel";
             this.ScanPanel.Size = new System.Drawing.Size(830, 452);
             this.ScanPanel.TabIndex = 1;
+            // 
+            // button12
+            // 
+            this.button12.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button12.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button12.Location = new System.Drawing.Point(628, 69);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(167, 33);
+            this.button12.TabIndex = 4;
+            this.button12.Text = "Обновить";
+            this.button12.UseVisualStyleBackColor = false;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // panel1
             // 
@@ -366,12 +379,13 @@ namespace UI_Antivirus
             // MonitorPanel
             // 
             this.MonitorPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.MonitorPanel.Controls.Add(this.label4);
             this.MonitorPanel.Controls.Add(this.StopButton);
             this.MonitorPanel.Controls.Add(this.panel4);
             this.MonitorPanel.Controls.Add(this.StartMonitoring);
             this.MonitorPanel.Controls.Add(this.DirButtonMonitoring);
             this.MonitorPanel.Controls.Add(this.label13);
-            this.MonitorPanel.Location = new System.Drawing.Point(1350, 599);
+            this.MonitorPanel.Location = new System.Drawing.Point(865, 580);
             this.MonitorPanel.Name = "MonitorPanel";
             this.MonitorPanel.Size = new System.Drawing.Size(830, 455);
             this.MonitorPanel.TabIndex = 4;
@@ -510,7 +524,7 @@ namespace UI_Antivirus
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(94, 25);
+            this.label13.Location = new System.Drawing.Point(96, 21);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(266, 15);
             this.label13.TabIndex = 0;
@@ -521,7 +535,7 @@ namespace UI_Antivirus
             this.ReportPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ReportPanel.Controls.Add(this.panel5);
             this.ReportPanel.Controls.Add(this.label16);
-            this.ReportPanel.Location = new System.Drawing.Point(1368, 493);
+            this.ReportPanel.Location = new System.Drawing.Point(1647, 516);
             this.ReportPanel.Name = "ReportPanel";
             this.ReportPanel.Size = new System.Drawing.Size(827, 431);
             this.ReportPanel.TabIndex = 6;
@@ -606,10 +620,10 @@ namespace UI_Antivirus
             // MonitorPanelButton
             // 
             this.MonitorPanelButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.MonitorPanelButton.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MonitorPanelButton.Location = new System.Drawing.Point(12, 151);
+            this.MonitorPanelButton.Font = new System.Drawing.Font("Aznauri Square", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.MonitorPanelButton.Location = new System.Drawing.Point(3, 119);
             this.MonitorPanelButton.Name = "MonitorPanelButton";
-            this.MonitorPanelButton.Size = new System.Drawing.Size(160, 63);
+            this.MonitorPanelButton.Size = new System.Drawing.Size(160, 55);
             this.MonitorPanelButton.TabIndex = 5;
             this.MonitorPanelButton.Text = "Мониторинг";
             this.MonitorPanelButton.UseVisualStyleBackColor = false;
@@ -618,10 +632,10 @@ namespace UI_Antivirus
             // MonitorReportPanelButton
             // 
             this.MonitorReportPanelButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.MonitorReportPanelButton.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MonitorReportPanelButton.Location = new System.Drawing.Point(12, 220);
+            this.MonitorReportPanelButton.Font = new System.Drawing.Font("Aznauri Square", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.MonitorReportPanelButton.Location = new System.Drawing.Point(3, 180);
             this.MonitorReportPanelButton.Name = "MonitorReportPanelButton";
-            this.MonitorReportPanelButton.Size = new System.Drawing.Size(160, 63);
+            this.MonitorReportPanelButton.Size = new System.Drawing.Size(160, 55);
             this.MonitorReportPanelButton.TabIndex = 7;
             this.MonitorReportPanelButton.Text = " Отчет по мониторингу";
             this.MonitorReportPanelButton.UseVisualStyleBackColor = false;
@@ -630,10 +644,10 @@ namespace UI_Antivirus
             // PlanPanelButton
             // 
             this.PlanPanelButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.PlanPanelButton.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PlanPanelButton.Location = new System.Drawing.Point(13, 289);
+            this.PlanPanelButton.Font = new System.Drawing.Font("Aznauri Square", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PlanPanelButton.Location = new System.Drawing.Point(3, 241);
             this.PlanPanelButton.Name = "PlanPanelButton";
-            this.PlanPanelButton.Size = new System.Drawing.Size(160, 63);
+            this.PlanPanelButton.Size = new System.Drawing.Size(160, 49);
             this.PlanPanelButton.TabIndex = 8;
             this.PlanPanelButton.Text = "Запланировать";
             this.PlanPanelButton.UseVisualStyleBackColor = false;
@@ -644,7 +658,7 @@ namespace UI_Antivirus
             this.PanelReportMonitor.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.PanelReportMonitor.Controls.Add(this.panel3);
             this.PanelReportMonitor.Controls.Add(this.label7);
-            this.PanelReportMonitor.Location = new System.Drawing.Point(13, 486);
+            this.PanelReportMonitor.Location = new System.Drawing.Point(13, 471);
             this.PanelReportMonitor.Name = "PanelReportMonitor";
             this.PanelReportMonitor.Size = new System.Drawing.Size(827, 431);
             this.PanelReportMonitor.TabIndex = 7;
@@ -729,10 +743,10 @@ namespace UI_Antivirus
             // ReportPanelButton
             // 
             this.ReportPanelButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ReportPanelButton.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ReportPanelButton.Location = new System.Drawing.Point(12, 82);
+            this.ReportPanelButton.Font = new System.Drawing.Font("Aznauri Square", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ReportPanelButton.Location = new System.Drawing.Point(3, 65);
             this.ReportPanelButton.Name = "ReportPanelButton";
-            this.ReportPanelButton.Size = new System.Drawing.Size(160, 63);
+            this.ReportPanelButton.Size = new System.Drawing.Size(160, 50);
             this.ReportPanelButton.TabIndex = 9;
             this.ReportPanelButton.Text = " Отчет по сканированию";
             this.ReportPanelButton.UseVisualStyleBackColor = false;
@@ -743,7 +757,7 @@ namespace UI_Antivirus
             this.QuarantinePanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.QuarantinePanel.Controls.Add(this.panel6);
             this.QuarantinePanel.Controls.Add(this.label6);
-            this.QuarantinePanel.Location = new System.Drawing.Point(1060, 90);
+            this.QuarantinePanel.Location = new System.Drawing.Point(1604, 13);
             this.QuarantinePanel.Name = "QuarantinePanel";
             this.QuarantinePanel.Size = new System.Drawing.Size(827, 410);
             this.QuarantinePanel.TabIndex = 8;
@@ -867,10 +881,10 @@ namespace UI_Antivirus
             // PanelButtonQuarantine
             // 
             this.PanelButtonQuarantine.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.PanelButtonQuarantine.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PanelButtonQuarantine.Location = new System.Drawing.Point(12, 358);
+            this.PanelButtonQuarantine.Font = new System.Drawing.Font("Aznauri Square", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PanelButtonQuarantine.Location = new System.Drawing.Point(3, 296);
             this.PanelButtonQuarantine.Name = "PanelButtonQuarantine";
-            this.PanelButtonQuarantine.Size = new System.Drawing.Size(160, 63);
+            this.PanelButtonQuarantine.Size = new System.Drawing.Size(160, 43);
             this.PanelButtonQuarantine.TabIndex = 10;
             this.PanelButtonQuarantine.Text = "Крантин";
             this.PanelButtonQuarantine.UseVisualStyleBackColor = false;
@@ -887,7 +901,7 @@ namespace UI_Antivirus
             this.ShedulePanel.Controls.Add(this.button7);
             this.ShedulePanel.Controls.Add(this.button8);
             this.ShedulePanel.Controls.Add(this.label10);
-            this.ShedulePanel.Location = new System.Drawing.Point(196, 13);
+            this.ShedulePanel.Location = new System.Drawing.Point(185, 13);
             this.ShedulePanel.Name = "ShedulePanel";
             this.ShedulePanel.Size = new System.Drawing.Size(830, 452);
             this.ShedulePanel.TabIndex = 4;
@@ -1160,25 +1174,23 @@ namespace UI_Antivirus
             this.label10.TabIndex = 0;
             this.label10.Text = "Сканирование по расписанию";
             // 
-            // button12
+            // label4
             // 
-            this.button12.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button12.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button12.Location = new System.Drawing.Point(628, 69);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(167, 33);
-            this.button12.TabIndex = 4;
-            this.button12.Text = "Обновить";
-            this.button12.UseVisualStyleBackColor = false;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Aznauri Square", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(428, 24);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(176, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Мониторинг запущен";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UI_Antivirus.Properties.Resources.the_best_free_antivirus_protection_of_2016_r4m7;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1924, 783);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(1698, 849);
             this.Controls.Add(this.PanelButtonQuarantine);
             this.Controls.Add(this.MonitorPanel);
             this.Controls.Add(this.ShedulePanel);
@@ -1337,6 +1349,7 @@ namespace UI_Antivirus
         private System.Windows.Forms.Label DateToToScheduleScan;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Label label4;
     }
 }
 
