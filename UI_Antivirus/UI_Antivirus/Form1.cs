@@ -21,9 +21,11 @@ namespace UI_Antivirus
         List<FormElementsReportMonitoring> lformElementsReportMonitorings = new List<FormElementsReportMonitoring>();
         List<FormElementsReport> lformElementsReports = new List<FormElementsReport>();
         List<FormElementsQuarantune> lformElementsQuarantunes = new List<FormElementsQuarantune>();
+        List<FormElementsShedule> lformElementsShedules = new List<FormElementsShedule>();
 
         bool operationDone = true;
         IntPtr handleC;
+        
         public Form1()
         {
             InitializeComponent();
@@ -105,22 +107,36 @@ namespace UI_Antivirus
             while (true)
             {
                 string mail = AntivirusLibrary.MailSlotClientMethods.ReadMail(handleC);
-               
-                
+
+
                 if (mail.Equals("Operation done"))
                 {
-                    
+
                     operationDone = true;
-                    
+
+                    //List<string> lscanReport = AntivirusLibrary.DataBaseMethods.DataBaseGetAllNotes("Scan");
+                    //Console.WriteLine("lscan");
+                    //foreach (var scanFile in lscanReport)
+                    //{
+
+                    //    var strScanTemp = new AntivirusLibrary.DataReport(scanFile);
+                    //    var panelTemp = new FormElementsScan(flowLayoutPanelScan);
+                    //    panelTemp.PathScanTextBox.Text = strScanTemp.path;
+                    //    panelTemp.ResultScanLabel.Text = strScanTemp.virusType;
+                    //    panelTemp.DataScanLabel.Text = strScanTemp.date;
+                    //    panelTemp.TimeScanLabel.Text = strScanTemp.time;
+                    //    lformElementsScans.Add(panelTemp);
+
+                    //}
                 }
                 if (mail.Split(' ')[0].Equals("Scaned"))
                 {
 
                     //textBoxScaning.Invoke(new Action(() => textBoxScaning.Text = mail));
-                    //textBoxScaning.Invoke((ThreadStart)delegate ()
-                    //{
-                    //    textBoxScaning.Text = mail;
-                    //});
+                    textBoxScaning.Invoke((ThreadStart)delegate ()
+                    {
+                        textBoxScaning.Text = mail;
+                    });
                     Console.WriteLine("Write here" + mail);
                 }
 
@@ -135,11 +151,15 @@ namespace UI_Antivirus
             PanelReportMonitor.Visible = false;
             ReportPanel.Visible = false;
             QuarantinePanel.Visible = false;
+            ShedulePanel.Visible = false;
             MonitorPanelButton.BackColor = Color.White;
             ScanPanelButton.BackColor = Color.White;
             MonitorReportPanelButton.BackColor = Color.White;
             ReportPanelButton.BackColor = Color.White;
             PanelButtonQuarantine.BackColor = Color.White;
+            PlanPanelButton.BackColor = Color.White;
+            
+            
         }
 
         private void DeleteFileMonitoring_Click(object sender, EventArgs e)
@@ -149,7 +169,19 @@ namespace UI_Antivirus
 
         private void ReportPanelButton_Click(object sender, EventArgs e)
         {
-            lformElementsReportMonitorings.Add(new FormElementsReportMonitoring(flowLayoutPanelReportMonitoring));
+           
+
+            List<string> tempList = AntivirusLibrary.DataBaseMethods.DataBaseGetAllNotes("MonitoringReport");
+            foreach (var path in tempList)
+            {
+                var tempDate = new AntivirusLibrary.DataReportMonitoring(path);
+                FormElementsReportMonitoring tempForm = new FormElementsReportMonitoring(flowLayoutPanelReportMonitoring);
+                tempForm.ReportMonitoringtextBox.Text = tempDate.path;
+                tempForm.ReportMonitoringDate.Text = tempDate.date;
+                tempForm.ReportMonitoringTime.Text = tempDate.time;
+                tempForm.ReportMonitoringChange.Text = tempDate.virusType+" "+tempDate.operation;
+                lformElementsReportMonitorings.Add(tempForm);
+            }
 
             OffAll();
             PanelReportMonitor.Visible = true;
@@ -224,30 +256,8 @@ namespace UI_Antivirus
                     Console.WriteLine("Sended");
                 }
             }
+
            
-            
-            Console.WriteLine("ReadStart");
-            while (!operationDone)
-            {
-                
-            }
-            Console.WriteLine("ReadEnd");
-            //readThread.Abort();
-
-            List<string> lscanReport = AntivirusLibrary.DataBaseMethods.DataBaseGetAllNotes("Scan");
-            Console.WriteLine("lscan");
-            foreach (var scanFile in lscanReport) {
-
-                var strScanTemp = new AntivirusLibrary.DataReport(scanFile);
-                var panelTemp = new FormElementsScan(flowLayoutPanelScan);
-                panelTemp.PathScanTextBox.Text = strScanTemp.path;
-                panelTemp.ResultScanLabel.Text = strScanTemp.virusType;
-                panelTemp.DataScanLabel.Text = strScanTemp.date;
-                panelTemp.TimeScanLabel.Text = strScanTemp.time;
-                lformElementsScans.Add(panelTemp);
-            }
-            
-
         }
 
         private void DeleteAllScan_Click(object sender, EventArgs e)
@@ -298,7 +308,7 @@ namespace UI_Antivirus
                 {
                     string[] files = Directory.GetFiles(fbd.SelectedPath);
                     
-                    AntivirusLibrary.MailSlotClientMethods.SendQuest($"4|1?{fbd.SelectedPath}|0");
+                    
                     string date = DateTime.Now.ToString("MM/dd/yyyy");
                     string time = DateTime.Now.ToString("H:mm");
                     DataBaseMethods.AddNote("Monitoring", "'PATH','DATE','TIME'", $"'{fbd.SelectedPath}','{date}','{time}'");
@@ -320,6 +330,73 @@ namespace UI_Antivirus
 
         }
 
-        
+        private void PlanPanelButton_Click(object sender, EventArgs e)
+        {
+            
+            OffAll();
+            ShedulePanel.Visible = true;
+            ShedulePanel.Location = new System.Drawing.Point(179, 13);
+            PlanPanelButton.BackColor = Color.LightBlue;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+           
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            operationDone = false;
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    string[] files = Directory.GetFiles(fbd.SelectedPath);
+                    Console.WriteLine("BeginServer");
+                    AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
+                    AntivirusLibrary.MailSlotClientMethods.SendQuest($"0|1?{fbd.SelectedPath}|0");
+                    Console.WriteLine("Sended");
+                }
+            }
+
+
+            Console.WriteLine("ReadStart");
+            while (!operationDone)
+            {
+
+            }
+            Console.WriteLine("ReadEnd");
+            //readThread.Abort();
+
+            List<string> lscanReport = AntivirusLibrary.DataBaseMethods.DataBaseGetAllNotes("Scan");
+            Console.WriteLine("lscan");
+            foreach (var scanFile in lscanReport)
+            {
+
+                var strScanTemp = new AntivirusLibrary.DataReport(scanFile);
+                var panelTemp = new FormElementsScan(flowLayoutPanelScan);
+                panelTemp.PathScanTextBox.Text = strScanTemp.path;
+                panelTemp.ResultScanLabel.Text = strScanTemp.virusType;
+                panelTemp.DataScanLabel.Text = strScanTemp.date;
+                panelTemp.TimeScanLabel.Text = strScanTemp.time;
+                lformElementsScans.Add(panelTemp);
+            }
+
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            operationDone = true;
+            AntivirusLibrary.MailSlotClientMethods.SendQuest($"8|0|0");
+        }
+
+        private void StartMonitoring_Click(object sender, EventArgs e)
+        {
+            AntivirusLibrary.MailSlotClientMethods.CreateServerConnection();
+            AntivirusLibrary.MailSlotClientMethods.SendQuest($"4|0|0");
+        }
     }
 }

@@ -55,7 +55,7 @@ namespace TestConsoleServer
                 if (mail != "")
                 {
                     
-                    WriteMail("Hi! How are you?");
+                    WriteMail("Привет! КАк дела?");
 
                 }
 
@@ -107,7 +107,7 @@ namespace TestConsoleServer
                     {
                         if (ReadFile(handleS, buffer, 255, out nBytesRead, IntPtr.Zero))
                         {
-                            Console.WriteLine("Read mail: " + Encoding.ASCII.GetString(buffer).Replace("\0", ""));
+                            Console.WriteLine("Read mail: " + Encoding.UTF8.GetString(buffer).Replace("\0", ""));
                             return Encoding.ASCII.GetString(buffer).Replace("\0", "");
                         }
                     }
@@ -122,7 +122,7 @@ namespace TestConsoleServer
             CreateClientConnection();
             if (!handleC.Equals(new IntPtr(-1)))
             {
-                byte[] buffer = Encoding.ASCII.GetBytes(text);
+                byte[] buffer = Encoding.UTF8.GetBytes(text);
 
                 uint dwwr = new uint() ;
                 System.Threading.NativeOverlapped temp = new System.Threading.NativeOverlapped();

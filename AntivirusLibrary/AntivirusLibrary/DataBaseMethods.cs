@@ -51,6 +51,34 @@ namespace AntivirusLibrary
 
             return allNotesList;
         }
+        public static List<string> DataBaseGetAllNotesWhere(string tableName, string where)
+        {
+            SqliteConnection sqliteConnection = DataBaseConnection();
+
+            var command = sqliteConnection.CreateCommand();
+            command.CommandText = $"SELECT * FROM {tableName} WHERE {where}";
+
+            List<string> allNotesList = new List<string>();
+            string temp = "";
+            using (var reader = command.ExecuteReader())
+            {
+                for (int i = 0; reader.Read(); i++)
+                {
+                    for (int j = 0; j < reader.FieldCount; j++)
+                    {
+
+                        temp += reader.GetString(j) + '?';
+                    }
+                    temp.Trim();
+                    allNotesList.Add(temp);
+                    temp = "";
+                }
+            }
+
+            DataBaseCloseConnection(sqliteConnection);
+
+            return allNotesList;
+        }
         public static string DataBaseGetVirusType(string signature)
         {
             SqliteConnection sqliteConnection = DataBaseConnection();

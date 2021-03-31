@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Collections.Generic;
+using System.Timers;
 
 namespace AntivirusLibrary
 {
@@ -99,6 +100,7 @@ namespace AntivirusLibrary
 
                             break;
                         case 8:
+                            ScanMethods.StopScan();
                             break;
                         default:
                             break;
@@ -109,14 +111,26 @@ namespace AntivirusLibrary
             }
         }
 
+       
        private static void StartScanDir(Quest quest)
         {
+            ScanStatus = true;
+            Thread thread = new Thread(ThreadScan);
+            thread.Start(quest);
+            
+
+        }
+
+        private static void ThreadScan(object obj)
+        {
+            Quest quest = (Quest)obj;
             List<string> signatures = AntivirusLibrary.DataBaseMethods.DataBaseGetOneField("Signatures", 1);
             List<string> paths = quest.getPaths();
             List<string> filesToScan = new List<string>();
-
+           
             foreach (string dir in paths)
             {
+                if (!ScanStatus) return;
                 filesToScan.AddRange(AntivirusLibrary.DirectoryAndFileMethods.GetAllFiles(dir));
             }
             filesToScan = AntivirusLibrary.DirectoryAndFileMethods.FilesForScan(filesToScan);
@@ -124,6 +138,7 @@ namespace AntivirusLibrary
 
             foreach (string file in filesToScan)
             {
+                if (!ScanStatus) return;
                 var c = AntivirusLibrary.ScanMethods.GetScanBuffer(file);
                 AntivirusLibrary.ScanMethods.ScanToQueue(c, signatures, file);
             }
@@ -133,12 +148,9 @@ namespace AntivirusLibrary
 
             }
 
-            
+
             WriteMail("Operation done");
-            ScanStatus = true;
-
         }
-
        private static void DeleteFiles(Quest quest)
         {
             List<string> paths = quest.getPaths();

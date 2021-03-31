@@ -82,6 +82,7 @@
     <Compile Include="MonitoringMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScanMethods.cs" />
+    <Compile Include="SheduleScan.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -10,11 +10,11 @@ namespace UI_Antivirus
 {
     public class FormElementsReportMonitoring
     {
-        Panel ReportMonitoringPanel;
-        Label ReportMonitoringTime;
-        Label ReportMonitoringDate;
-        TextBox ReportMonitoringtextBox;
-        Label ReportMonitoringChange;
+        public Panel ReportMonitoringPanel;
+        public Label ReportMonitoringTime;
+        public Label ReportMonitoringDate;
+        public TextBox ReportMonitoringtextBox;
+        public Label ReportMonitoringChange;
         public FormElementsReportMonitoring(FlowLayoutPanel flowLayoutPanelReportMonitoring)
         {
             ReportMonitoringPanel = new System.Windows.Forms.Panel();

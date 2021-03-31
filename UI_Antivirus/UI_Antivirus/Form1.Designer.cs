@@ -32,6 +32,7 @@ namespace UI_Antivirus
             this.ScanPanelButton = new System.Windows.Forms.Button();
             this.ScanPanel = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button11 = new System.Windows.Forms.Button();
             this.SendToQuarantine = new System.Windows.Forms.Button();
             this.IgnorScan = new System.Windows.Forms.Button();
             this.DeleteAllScan = new System.Windows.Forms.Button();
@@ -98,6 +99,32 @@ namespace UI_Antivirus
             this.DataQuarantine = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.PanelButtonQuarantine = new System.Windows.Forms.Button();
+            this.ShedulePanel = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lhours = new System.Windows.Forms.Label();
+            this.Minutes = new System.Windows.Forms.NumericUpDown();
+            this.Hourse = new System.Windows.Forms.NumericUpDown();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.PanelToScheduleScan = new System.Windows.Forms.Panel();
+            this.TextBoxToScheduleScan = new System.Windows.Forms.TextBox();
+            this.TimeToScheduleScan = new System.Windows.Forms.Label();
+            this.DateToToScheduleScan = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.ShedulePanelAll = new System.Windows.Forms.Panel();
+            this.SheduleTextBox = new System.Windows.Forms.TextBox();
+            this.SheduleLabelVirusType = new System.Windows.Forms.Label();
+            this.SheduleLabelTime = new System.Windows.Forms.Label();
+            this.SheduleLabelDate = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
             this.ScanPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.flowLayoutPanelScan.SuspendLayout();
@@ -118,6 +145,14 @@ namespace UI_Antivirus
             this.panel6.SuspendLayout();
             this.flowLayoutPanelQuarantine.SuspendLayout();
             this.PanelQuarantine.SuspendLayout();
+            this.ShedulePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Minutes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Hourse)).BeginInit();
+            this.panel7.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
+            this.PanelToScheduleScan.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.ShedulePanelAll.SuspendLayout();
             this.SuspendLayout();
             // 
             // ScanPanelButton
@@ -139,7 +174,7 @@ namespace UI_Antivirus
             this.ScanPanel.Controls.Add(this.DirButtonScan);
             this.ScanPanel.Controls.Add(this.FileButtonScan);
             this.ScanPanel.Controls.Add(this.label1);
-            this.ScanPanel.Location = new System.Drawing.Point(193, 17);
+            this.ScanPanel.Location = new System.Drawing.Point(1032, 42);
             this.ScanPanel.Name = "ScanPanel";
             this.ScanPanel.Size = new System.Drawing.Size(830, 452);
             this.ScanPanel.TabIndex = 1;
@@ -147,6 +182,7 @@ namespace UI_Antivirus
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel1.Controls.Add(this.button11);
             this.panel1.Controls.Add(this.SendToQuarantine);
             this.panel1.Controls.Add(this.IgnorScan);
             this.panel1.Controls.Add(this.DeleteAllScan);
@@ -159,6 +195,18 @@ namespace UI_Antivirus
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(830, 323);
             this.panel1.TabIndex = 3;
+            // 
+            // button11
+            // 
+            this.button11.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button11.Font = new System.Drawing.Font("Aznauri Square", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button11.Location = new System.Drawing.Point(628, 5);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(167, 50);
+            this.button11.TabIndex = 4;
+            this.button11.Text = "остановить сканирование";
+            this.button11.UseVisualStyleBackColor = false;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // SendToQuarantine
             // 
@@ -334,7 +382,7 @@ namespace UI_Antivirus
             this.MonitorPanel.Controls.Add(this.DirButtonMonitoring);
             this.MonitorPanel.Controls.Add(this.FileButtonMonitoring);
             this.MonitorPanel.Controls.Add(this.label13);
-            this.MonitorPanel.Location = new System.Drawing.Point(591, 11);
+            this.MonitorPanel.Location = new System.Drawing.Point(1029, 247);
             this.MonitorPanel.Name = "MonitorPanel";
             this.MonitorPanel.Size = new System.Drawing.Size(830, 455);
             this.MonitorPanel.TabIndex = 4;
@@ -374,6 +422,7 @@ namespace UI_Antivirus
             this.StartMonitoring.TabIndex = 6;
             this.StartMonitoring.Text = "Запустить";
             this.StartMonitoring.UseVisualStyleBackColor = false;
+            this.StartMonitoring.Click += new System.EventHandler(this.StartMonitoring_Click);
             // 
             // DeleteAllMonitoring
             // 
@@ -494,7 +543,7 @@ namespace UI_Antivirus
             this.ReportPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ReportPanel.Controls.Add(this.panel5);
             this.ReportPanel.Controls.Add(this.label16);
-            this.ReportPanel.Location = new System.Drawing.Point(1343, 38);
+            this.ReportPanel.Location = new System.Drawing.Point(1368, 493);
             this.ReportPanel.Name = "ReportPanel";
             this.ReportPanel.Size = new System.Drawing.Size(827, 431);
             this.ReportPanel.TabIndex = 6;
@@ -610,13 +659,14 @@ namespace UI_Antivirus
             this.PlanPanelButton.TabIndex = 8;
             this.PlanPanelButton.Text = "Запланировать";
             this.PlanPanelButton.UseVisualStyleBackColor = false;
+            this.PlanPanelButton.Click += new System.EventHandler(this.PlanPanelButton_Click);
             // 
             // PanelReportMonitor
             // 
             this.PanelReportMonitor.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.PanelReportMonitor.Controls.Add(this.panel3);
             this.PanelReportMonitor.Controls.Add(this.label7);
-            this.PanelReportMonitor.Location = new System.Drawing.Point(16, 538);
+            this.PanelReportMonitor.Location = new System.Drawing.Point(13, 486);
             this.PanelReportMonitor.Name = "PanelReportMonitor";
             this.PanelReportMonitor.Size = new System.Drawing.Size(827, 431);
             this.PanelReportMonitor.TabIndex = 7;
@@ -715,7 +765,7 @@ namespace UI_Antivirus
             this.QuarantinePanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.QuarantinePanel.Controls.Add(this.panel6);
             this.QuarantinePanel.Controls.Add(this.label6);
-            this.QuarantinePanel.Location = new System.Drawing.Point(862, 538);
+            this.QuarantinePanel.Location = new System.Drawing.Point(876, 669);
             this.QuarantinePanel.Name = "QuarantinePanel";
             this.QuarantinePanel.Size = new System.Drawing.Size(827, 410);
             this.QuarantinePanel.TabIndex = 8;
@@ -845,18 +895,297 @@ namespace UI_Antivirus
             this.PanelButtonQuarantine.UseVisualStyleBackColor = false;
             this.PanelButtonQuarantine.Click += new System.EventHandler(this.Quarantine_Click);
             // 
+            // ShedulePanel
+            // 
+            this.ShedulePanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ShedulePanel.Controls.Add(this.label3);
+            this.ShedulePanel.Controls.Add(this.lhours);
+            this.ShedulePanel.Controls.Add(this.Minutes);
+            this.ShedulePanel.Controls.Add(this.Hourse);
+            this.ShedulePanel.Controls.Add(this.panel7);
+            this.ShedulePanel.Controls.Add(this.button7);
+            this.ShedulePanel.Controls.Add(this.button8);
+            this.ShedulePanel.Controls.Add(this.label10);
+            this.ShedulePanel.Location = new System.Drawing.Point(196, 13);
+            this.ShedulePanel.Name = "ShedulePanel";
+            this.ShedulePanel.Size = new System.Drawing.Size(830, 452);
+            this.ShedulePanel.TabIndex = 4;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(688, 77);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(49, 17);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Минут";
+            // 
+            // lhours
+            // 
+            this.lhours.AutoSize = true;
+            this.lhours.Location = new System.Drawing.Point(687, 50);
+            this.lhours.Name = "lhours";
+            this.lhours.Size = new System.Drawing.Size(48, 17);
+            this.lhours.TabIndex = 9;
+            this.lhours.Text = "Часов";
+            // 
+            // Minutes
+            // 
+            this.Minutes.Location = new System.Drawing.Point(561, 73);
+            this.Minutes.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.Minutes.Name = "Minutes";
+            this.Minutes.Size = new System.Drawing.Size(120, 22);
+            this.Minutes.TabIndex = 8;
+            // 
+            // Hourse
+            // 
+            this.Hourse.Location = new System.Drawing.Point(561, 45);
+            this.Hourse.Maximum = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
+            this.Hourse.Name = "Hourse";
+            this.Hourse.Size = new System.Drawing.Size(120, 22);
+            this.Hourse.TabIndex = 7;
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel7.Controls.Add(this.button10);
+            this.panel7.Controls.Add(this.button9);
+            this.panel7.Controls.Add(this.button1);
+            this.panel7.Controls.Add(this.flowLayoutPanel2);
+            this.panel7.Controls.Add(this.button2);
+            this.panel7.Controls.Add(this.button5);
+            this.panel7.Controls.Add(this.button6);
+            this.panel7.Controls.Add(this.flowLayoutPanel1);
+            this.panel7.Location = new System.Drawing.Point(0, 108);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(830, 323);
+            this.panel7.TabIndex = 3;
+            // 
+            // button10
+            // 
+            this.button10.BackColor = System.Drawing.SystemColors.Window;
+            this.button10.Font = new System.Drawing.Font("Aznauri Square", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button10.Location = new System.Drawing.Point(683, 139);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(112, 23);
+            this.button10.TabIndex = 8;
+            this.button10.Text = "Выбрать все";
+            this.button10.UseVisualStyleBackColor = false;
+            // 
+            // button9
+            // 
+            this.button9.BackColor = System.Drawing.SystemColors.Window;
+            this.button9.Font = new System.Drawing.Font("Aznauri Square", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button9.Location = new System.Drawing.Point(20, 139);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(112, 23);
+            this.button9.TabIndex = 7;
+            this.button9.Text = "Удалить";
+            this.button9.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.Window;
+            this.button1.Font = new System.Drawing.Font("Aznauri Square", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(138, 297);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(112, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Карантин";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.AutoScroll = true;
+            this.flowLayoutPanel2.Controls.Add(this.PanelToScheduleScan);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(20, 4);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(775, 122);
+            this.flowLayoutPanel2.TabIndex = 3;
+            // 
+            // PanelToScheduleScan
+            // 
+            this.PanelToScheduleScan.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.PanelToScheduleScan.Controls.Add(this.TextBoxToScheduleScan);
+            this.PanelToScheduleScan.Controls.Add(this.TimeToScheduleScan);
+            this.PanelToScheduleScan.Controls.Add(this.DateToToScheduleScan);
+            this.PanelToScheduleScan.Location = new System.Drawing.Point(3, 3);
+            this.PanelToScheduleScan.Name = "PanelToScheduleScan";
+            this.PanelToScheduleScan.Size = new System.Drawing.Size(573, 27);
+            this.PanelToScheduleScan.TabIndex = 0;
+            // 
+            // TextBoxToScheduleScan
+            // 
+            this.TextBoxToScheduleScan.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.TextBoxToScheduleScan.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextBoxToScheduleScan.Location = new System.Drawing.Point(143, 6);
+            this.TextBoxToScheduleScan.Name = "TextBoxToScheduleScan";
+            this.TextBoxToScheduleScan.Size = new System.Drawing.Size(413, 15);
+            this.TextBoxToScheduleScan.TabIndex = 4;
+            // 
+            // TimeToScheduleScan
+            // 
+            this.TimeToScheduleScan.AutoSize = true;
+            this.TimeToScheduleScan.Location = new System.Drawing.Point(91, 5);
+            this.TimeToScheduleScan.Name = "TimeToScheduleScan";
+            this.TimeToScheduleScan.Size = new System.Drawing.Size(36, 17);
+            this.TimeToScheduleScan.TabIndex = 1;
+            this.TimeToScheduleScan.Text = "9:55";
+            // 
+            // DateToToScheduleScan
+            // 
+            this.DateToToScheduleScan.AutoSize = true;
+            this.DateToToScheduleScan.Location = new System.Drawing.Point(4, 5);
+            this.DateToToScheduleScan.Name = "DateToToScheduleScan";
+            this.DateToToScheduleScan.Size = new System.Drawing.Size(64, 17);
+            this.DateToToScheduleScan.TabIndex = 0;
+            this.DateToToScheduleScan.Text = "18.03.21";
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.SystemColors.Window;
+            this.button2.Font = new System.Drawing.Font("Aznauri Square", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.Location = new System.Drawing.Point(256, 297);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(120, 23);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Игнорировать";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.SystemColors.Window;
+            this.button5.Font = new System.Drawing.Font("Aznauri Square", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button5.Location = new System.Drawing.Point(683, 297);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(112, 23);
+            this.button5.TabIndex = 5;
+            this.button5.Text = "Выбрать все";
+            this.button5.UseVisualStyleBackColor = false;
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.SystemColors.Window;
+            this.button6.Font = new System.Drawing.Font("Aznauri Square", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button6.Location = new System.Drawing.Point(20, 297);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(112, 23);
+            this.button6.TabIndex = 4;
+            this.button6.Text = "Удалить";
+            this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Controls.Add(this.ShedulePanelAll);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 168);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(775, 123);
+            this.flowLayoutPanel1.TabIndex = 2;
+            // 
+            // ShedulePanelAll
+            // 
+            this.ShedulePanelAll.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ShedulePanelAll.Controls.Add(this.SheduleTextBox);
+            this.ShedulePanelAll.Controls.Add(this.SheduleLabelVirusType);
+            this.ShedulePanelAll.Controls.Add(this.SheduleLabelTime);
+            this.ShedulePanelAll.Controls.Add(this.SheduleLabelDate);
+            this.ShedulePanelAll.Location = new System.Drawing.Point(3, 3);
+            this.ShedulePanelAll.Name = "ShedulePanelAll";
+            this.ShedulePanelAll.Size = new System.Drawing.Size(573, 27);
+            this.ShedulePanelAll.TabIndex = 0;
+            // 
+            // SheduleTextBox
+            // 
+            this.SheduleTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.SheduleTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.SheduleTextBox.Location = new System.Drawing.Point(143, 6);
+            this.SheduleTextBox.Name = "SheduleTextBox";
+            this.SheduleTextBox.Size = new System.Drawing.Size(320, 15);
+            this.SheduleTextBox.TabIndex = 4;
+            // 
+            // SheduleLabelVirusType
+            // 
+            this.SheduleLabelVirusType.AutoSize = true;
+            this.SheduleLabelVirusType.Location = new System.Drawing.Point(481, 5);
+            this.SheduleLabelVirusType.Name = "SheduleLabelVirusType";
+            this.SheduleLabelVirusType.Size = new System.Drawing.Size(44, 17);
+            this.SheduleLabelVirusType.TabIndex = 3;
+            this.SheduleLabelVirusType.Text = "trojan";
+            // 
+            // SheduleLabelTime
+            // 
+            this.SheduleLabelTime.AutoSize = true;
+            this.SheduleLabelTime.Location = new System.Drawing.Point(91, 5);
+            this.SheduleLabelTime.Name = "SheduleLabelTime";
+            this.SheduleLabelTime.Size = new System.Drawing.Size(36, 17);
+            this.SheduleLabelTime.TabIndex = 1;
+            this.SheduleLabelTime.Text = "9:55";
+            // 
+            // SheduleLabelDate
+            // 
+            this.SheduleLabelDate.AutoSize = true;
+            this.SheduleLabelDate.Location = new System.Drawing.Point(4, 5);
+            this.SheduleLabelDate.Name = "SheduleLabelDate";
+            this.SheduleLabelDate.Size = new System.Drawing.Size(64, 17);
+            this.SheduleLabelDate.TabIndex = 0;
+            this.SheduleLabelDate.Text = "18.03.21";
+            // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.SystemColors.Window;
+            this.button7.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button7.Location = new System.Drawing.Point(256, 45);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(176, 57);
+            this.button7.TabIndex = 2;
+            this.button7.Text = "Директория";
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.SystemColors.Window;
+            this.button8.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button8.Location = new System.Drawing.Point(20, 45);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(176, 57);
+            this.button8.TabIndex = 1;
+            this.button8.Text = "Файл";
+            this.button8.UseVisualStyleBackColor = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label10.Location = new System.Drawing.Point(94, 25);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(289, 15);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Сканирование по расписанию";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UI_Antivirus.Properties.Resources.the_best_free_antivirus_protection_of_2016_r4m7;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1791, 670);
+            this.ClientSize = new System.Drawing.Size(1924, 783);
             this.Controls.Add(this.PanelButtonQuarantine);
+            this.Controls.Add(this.MonitorPanel);
+            this.Controls.Add(this.ShedulePanel);
             this.Controls.Add(this.QuarantinePanel);
             this.Controls.Add(this.ReportPanelButton);
             this.Controls.Add(this.PanelReportMonitor);
-            this.Controls.Add(this.MonitorPanel);
             this.Controls.Add(this.PlanPanelButton);
             this.Controls.Add(this.ScanPanel);
             this.Controls.Add(this.ReportPanel);
@@ -897,6 +1226,17 @@ namespace UI_Antivirus
             this.flowLayoutPanelQuarantine.ResumeLayout(false);
             this.PanelQuarantine.ResumeLayout(false);
             this.PanelQuarantine.PerformLayout();
+            this.ShedulePanel.ResumeLayout(false);
+            this.ShedulePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Minutes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Hourse)).EndInit();
+            this.panel7.ResumeLayout(false);
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.PanelToScheduleScan.ResumeLayout(false);
+            this.PanelToScheduleScan.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.ShedulePanelAll.ResumeLayout(false);
+            this.ShedulePanelAll.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -972,6 +1312,33 @@ namespace UI_Antivirus
         private System.Windows.Forms.Label DataQuarantine;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button PanelButtonQuarantine;
+        private System.Windows.Forms.Panel ShedulePanel;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lhours;
+        private System.Windows.Forms.NumericUpDown Minutes;
+        private System.Windows.Forms.NumericUpDown Hourse;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Panel ShedulePanelAll;
+        private System.Windows.Forms.TextBox SheduleTextBox;
+        private System.Windows.Forms.Label SheduleLabelVirusType;
+        private System.Windows.Forms.Label SheduleLabelTime;
+        private System.Windows.Forms.Label SheduleLabelDate;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.Panel PanelToScheduleScan;
+        private System.Windows.Forms.TextBox TextBoxToScheduleScan;
+        private System.Windows.Forms.Label TimeToScheduleScan;
+        private System.Windows.Forms.Label DateToToScheduleScan;
+        private System.Windows.Forms.Button button11;
     }
 }
 
