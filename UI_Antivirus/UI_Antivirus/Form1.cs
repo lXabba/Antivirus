@@ -40,6 +40,9 @@ namespace UI_Antivirus
 
         private void ScanPanelButton_Click(object sender, EventArgs e)
         {
+            ScanResultLabel.Text = "";
+
+            ScanRunning.Text = "Не выполняется";
             OffAll();
             ScanPanel.Visible = true;
             ScanPanel.Location = new System.Drawing.Point(179, 13);
@@ -111,6 +114,31 @@ namespace UI_Antivirus
             {
                 string mail = AntivirusLibrary.MailSlotClientMethods.ReadMail(handleC);
 
+                if (mail.StartsWith("Всего"))
+                {
+                   
+                        ScanRunning.Invoke((ThreadStart)delegate ()
+                        {
+                            ScanResultLabel.Text = mail;
+                        });
+                }
+                if (mail.Equals("Завершено"))
+                {
+                    List<string> temp = AntivirusLibrary.DataBaseMethods.DataBaseGetAllNotes("Scan");
+                    ScanRunning.Invoke((ThreadStart)delegate ()
+                    {
+                        ScanRunning.Text = mail +$". Найдено {temp.Count} угроз";
+                    });
+                }
+                if (mail.StartsWith("Выполнено"))
+                {
+                    if (int.Parse(mail.Split(' ')[1]) >= 0){
+                        ScanRunning.Invoke((ThreadStart)delegate ()
+                        {
+                            ScanRunning.Text = mail + "%";
+                        });
+                    }
+                }
                 if (mail.StartsWith("Monitor")) Console.WriteLine(mail);
                 if (mail.Equals("Operation done"))
                 {
@@ -168,7 +196,14 @@ namespace UI_Antivirus
 
         private void ReportPanelButton_Click(object sender, EventArgs e)
         {
-           
+            List<string> temp = AntivirusLibrary.DataBaseMethods.DataBaseGetAllNotes("MonitoringReport");
+            if (temp.Count > 100)
+            {
+                for (int i = 0; i < temp.Count - 100; i++)
+                {
+                    AntivirusLibrary.DataBaseMethods.DataBaseDeleteNote(temp[i].Split('?')[1], "MonitoringReport");
+                }
+            }
 
             List<string> tempList = AntivirusLibrary.DataBaseMethods.DataBaseGetAllNotes("MonitoringReport");
             foreach (var path in tempList)
@@ -190,7 +225,14 @@ namespace UI_Antivirus
 
         private void ReportPanelButton_Click_1(object sender, EventArgs e)
         {
-           
+            List<string> tempL = AntivirusLibrary.DataBaseMethods.DataBaseGetAllNotes("ScanReport");
+            if (tempL.Count > 100)
+            {
+                for (int i = 0; i < tempL.Count - 100; i++)
+                {
+                    AntivirusLibrary.DataBaseMethods.DataBaseDeleteNote(tempL[i].Split('?')[1], "ScanReport");
+                }
+            }
 
             foreach (var temp in lformElementsReports)
             {
@@ -240,8 +282,8 @@ namespace UI_Antivirus
 
         private void DirButtonScan_Click(object sender, EventArgs e)
         {
-            
-            operationDone = false;
+            ScanResultLabel.Text = "";
+           operationDone = false;
             using (var fbd = new FolderBrowserDialog())
             {
                 DialogResult result = fbd.ShowDialog();
@@ -295,6 +337,7 @@ namespace UI_Antivirus
 
         private void FileButtonScan_Click(object sender, EventArgs e)
         {
+            ScanResultLabel.Text = "";
             operationDone = false;
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {

@@ -12,17 +12,21 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-          
-            AntivirusLibrary.SheduleScan.StartTimer();
-            AntivirusLibrary.MailSlotServerMethods.CreateServerMailslot();
-            Thread readThread = new Thread(AntivirusLibrary.MailSlotServerMethods.ServerReadThread);
-            readThread.Start();
-            while (true)
-            {
 
-            }
+            //AntivirusLibrary.SheduleScan.StartTimer();
+            //AntivirusLibrary.MailSlotServerMethods.CreateServerMailslot();
+            //Thread readThread = new Thread(AntivirusLibrary.MailSlotServerMethods.ServerReadThread);
+            //readThread.Start();
+            //while (true)
+            //{
 
-            
+            //}
+
+            int a = 26;
+            int b = 25;
+            int c = (int)((double)b / a * 100);
+            Console.WriteLine("k"+c);
+            Console.Read();
            
         }
     }

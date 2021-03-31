@@ -97,11 +97,15 @@ namespace AntivirusLibrary
                             if (MailSlotServerMethods.FilesForScanCount == EndScan)
                             {
                                 EndScan = 0;
+                                MailSlotServerMethods.WriteMail("Всего просканированно " + MailSlotServerMethods.FilesForScanCount + "файлов");
                                 MailSlotServerMethods.FilesForScanCount = 0;
                                 MailSlotServerMethods.ScanStatus = false;
+                                MailSlotServerMethods.WriteMail("Завершено");
                             }
                             MailSlotServerMethods.CreateClientConnection();
                             MailSlotServerMethods.WriteMail("Scaned " + filePath);
+                            int b = (int)((double)EndScan / MailSlotServerMethods.FilesForScanCount * 100);
+                            MailSlotServerMethods.WriteMail("Выполнено " + b);
                             Console.WriteLine(MailSlotServerMethods.ScanStatus + " SCANSTATUS");
                             Console.WriteLine("End");
                             return; //DataBaseMethods.DataBaseGetVirusType(str); //выход это вирус уиии 
@@ -113,11 +117,16 @@ namespace AntivirusLibrary
             if (MailSlotServerMethods.FilesForScanCount == EndScan)
             {
                 EndScan = 0;
+                MailSlotServerMethods.WriteMail("Всего просканированно " + MailSlotServerMethods.FilesForScanCount + "файлов");
                 MailSlotServerMethods.FilesForScanCount = 0;
                 MailSlotServerMethods.ScanStatus = false;
+                MailSlotServerMethods.WriteMail("Завершено");
             }
             MailSlotServerMethods.CreateClientConnection();
             MailSlotServerMethods.WriteMail("Scaned " + filePath);
+            int a = (int)((double)EndScan / MailSlotServerMethods.FilesForScanCount* 100);
+            MailSlotServerMethods.WriteMail("Выполнено " + a );
+           // MailSlotServerMethods.WriteMail("Выполнено " + EndScan +" M "+ MailSlotServerMethods.FilesForScanCount + "%");
             Console.WriteLine(MailSlotServerMethods.ScanStatus + " SCANSTATUS");
             Console.WriteLine("End");
             return; //это не вирус =(

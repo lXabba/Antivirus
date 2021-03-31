@@ -50,6 +50,7 @@ namespace UI_Antivirus
             this.FileButtonScan = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.MonitorPanel = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.StopButton = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.DeleteAllMonitoring = new System.Windows.Forms.Button();
@@ -124,7 +125,7 @@ namespace UI_Antivirus
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.ScanResultLabel = new System.Windows.Forms.Label();
             this.ScanPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.flowLayoutPanelScan.SuspendLayout();
@@ -175,10 +176,11 @@ namespace UI_Antivirus
             this.ScanPanel.Controls.Add(this.DirButtonScan);
             this.ScanPanel.Controls.Add(this.FileButtonScan);
             this.ScanPanel.Controls.Add(this.label1);
-            this.ScanPanel.Location = new System.Drawing.Point(1125, 42);
+            this.ScanPanel.Location = new System.Drawing.Point(1024, 12);
             this.ScanPanel.Name = "ScanPanel";
             this.ScanPanel.Size = new System.Drawing.Size(830, 452);
             this.ScanPanel.TabIndex = 1;
+            this.ScanPanel.Visible = false;
             // 
             // button12
             // 
@@ -195,6 +197,7 @@ namespace UI_Antivirus
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel1.Controls.Add(this.ScanResultLabel);
             this.panel1.Controls.Add(this.button11);
             this.panel1.Controls.Add(this.SendToQuarantine);
             this.panel1.Controls.Add(this.DeleteAllScan);
@@ -390,6 +393,16 @@ namespace UI_Antivirus
             this.MonitorPanel.Size = new System.Drawing.Size(830, 455);
             this.MonitorPanel.TabIndex = 4;
             this.MonitorPanel.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Aznauri Square", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(428, 24);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(176, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Мониторинг запущен";
             // 
             // StopButton
             // 
@@ -905,6 +918,7 @@ namespace UI_Antivirus
             this.ShedulePanel.Name = "ShedulePanel";
             this.ShedulePanel.Size = new System.Drawing.Size(830, 452);
             this.ShedulePanel.TabIndex = 4;
+            this.ShedulePanel.Visible = false;
             // 
             // label3
             // 
@@ -1174,15 +1188,15 @@ namespace UI_Antivirus
             this.label10.TabIndex = 0;
             this.label10.Text = "Сканирование по расписанию";
             // 
-            // label4
+            // ScanResultLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Aznauri Square", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(428, 24);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(176, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Мониторинг запущен";
+            this.ScanResultLabel.AutoSize = true;
+            this.ScanResultLabel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ScanResultLabel.Font = new System.Drawing.Font("Aznauri Square", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ScanResultLabel.Location = new System.Drawing.Point(310, 40);
+            this.ScanResultLabel.Name = "ScanResultLabel";
+            this.ScanResultLabel.Size = new System.Drawing.Size(0, 13);
+            this.ScanResultLabel.TabIndex = 5;
             // 
             // Form1
             // 
@@ -1190,7 +1204,7 @@ namespace UI_Antivirus
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UI_Antivirus.Properties.Resources.the_best_free_antivirus_protection_of_2016_r4m7;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1698, 849);
+            this.ClientSize = new System.Drawing.Size(1072, 513);
             this.Controls.Add(this.PanelButtonQuarantine);
             this.Controls.Add(this.MonitorPanel);
             this.Controls.Add(this.ShedulePanel);
@@ -1204,6 +1218,8 @@ namespace UI_Antivirus
             this.Controls.Add(this.MonitorPanelButton);
             this.Controls.Add(this.ScanPanelButton);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1090, 560);
+            this.MinimumSize = new System.Drawing.Size(1090, 560);
             this.Name = "Form1";
             this.Text = "Antivirus Protasova";
             this.ScanPanel.ResumeLayout(false);
@@ -1350,6 +1366,7 @@ namespace UI_Antivirus
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label ScanResultLabel;
     }
 }
 
