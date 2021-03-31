@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Collections.Generic;
+using System.Net.Sockets;
 
 namespace TestConsoleClient
 {
@@ -35,22 +36,43 @@ namespace TestConsoleClient
             static IntPtr handleC = new IntPtr(-1);
 
         static bool b = true;
-            static void Main(string[] args)
+        static TcpListener tcpListener = new TcpListener(10);
+        static StreamWriter streamWriter;
+        static StreamReader streamReader;
+        static void Main(string[] args)
         {
-            b = false;
-            Console.WriteLine(File.Exists("\\\\.\\mailslot\\clientmail"));
-            CreateClientMail();
-            Console.WriteLine(File.Exists("\\\\.\\mailslot\\clientmail"));
-            
-            CreateServerConnection();
-            WriteMail("ПРИВЕт");
-            Thread read = new Thread(ClientReadThread);
-            read.Start();
-            while (!b)
-            {
+            // b = false;
+            // Console.WriteLine(File.Exists("\\\\.\\mailslot\\clientmail"));
+            // CreateClientMail();
+            // Console.WriteLine(File.Exists("\\\\.\\mailslot\\clientmail"));
 
+            //CreateServerConnection();
+
+            // Thread read = new Thread(ClientReadThread);
+            // read.Start();
+            // while (!b)
+            // {
+
+            // }
+            // Console.WriteLine("End");
+
+            tcpListener.Start();
+            Socket socketForClient = tcpListener.AcceptSocket();
+            if (socketForClient.Connected)
+            {
+                NetworkStream networkStream = new NetworkStream(socketForClient);
+                StreamWriter streamWriter = new StreamWriter(networkStream);
+                StreamReader streamReader = new StreamReader(networkStream);
+
+                streamWriter.WriteLine("MESSAGE SENDED");
+                streamWriter.Flush();
+                streamWriter.Close();
+                streamReader.Close();
+                networkStream.Close();
+                tcpListener.Stop();
+                socketForClient.Close();
             }
-            Console.WriteLine("End");
+
             Console.Read();
         }
         public static void ClientReadThread()
@@ -61,7 +83,7 @@ namespace TestConsoleClient
                 if (!mail.Equals(""))
                 {
                     b = true;
-                   
+                    WriteMail("*********************");
                     break;
                 }
 
@@ -86,9 +108,11 @@ namespace TestConsoleClient
 
         public static void CreateServerConnection()
         {
-            string path = "\\\\.\\mailslot\\mailServer";
+            //string path = "\\\\.\\mailslot\\mailServer";
+            string path = "D:\\mailServer";
             while (handleS.Equals(new IntPtr(-1)))
             {
+                //IntPtr handle = fileStream.SafeFileHandle.DangerousGetHandle();
                 handleS = CreateFile(path, FileAccess.Write,
                     FileShare.Read, IntPtr.Zero, FileMode.OpenOrCreate, FileAttributes.Normal, IntPtr.Zero);
             }
@@ -130,9 +154,15 @@ namespace TestConsoleClient
                 uint dwwr;
                 System.Threading.NativeOverlapped temp = new System.Threading.NativeOverlapped();
 
-                if (WriteFile(handleS, buffer, (uint)buffer.Length, out dwwr, ref temp))
+                //if (WriteFile(handleS, buffer, (uint)buffer.Length, out dwwr, ref temp))
+                //{
+                //    Console.WriteLine("Write mail: " + text);
+                //}
+
+                using (var file = new FileStream("\\\\.\\mailslot\\mailServer", FileMode.Append, FileAccess.Write, FileShare.Write))
                 {
-                    Console.WriteLine("Write mail: " + text);
+                    file.Write(Encoding.UTF8.GetBytes(text), 0, text.Length);
+                    file.Close();
                 }
             }
         }

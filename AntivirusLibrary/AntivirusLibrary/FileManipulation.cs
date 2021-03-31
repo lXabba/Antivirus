@@ -11,6 +11,7 @@ namespace AntivirusLibrary
     {
         public static void FileManipulationQuarantine(string path)
         {
+            if (!File.Exists(path)) return;
             using (var stream = File.Open(path, FileMode.Open,FileAccess.ReadWrite,FileShare.ReadWrite))
             {
                 stream.Position = 0;
@@ -19,6 +20,18 @@ namespace AntivirusLibrary
                 Console.WriteLine("Q " + path);
             }
             
+        }
+        public static void FileManipulationRecover(string path)
+        {
+            if (!File.Exists(path)) return;
+            using (var stream = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+            {
+                stream.Position = 0;
+                stream.WriteByte(0x4D);
+                stream.Close();
+                Console.WriteLine("Q " + path);
+            }
+
         }
         public static void FileManipulationQuaratineFull(string file)
         {

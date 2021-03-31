@@ -12,9 +12,8 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            Thread monitorThread = new Thread(MailSlotServerMethods.StartMonitoringServer);
-            monitorThread.Start();
-            MailSlotServerMethods.StartMonitoringServer();
+          
+            AntivirusLibrary.SheduleScan.StartTimer();
             AntivirusLibrary.MailSlotServerMethods.CreateServerMailslot();
             Thread readThread = new Thread(AntivirusLibrary.MailSlotServerMethods.ServerReadThread);
             readThread.Start();
@@ -23,9 +22,8 @@ namespace ConsoleTest
 
             }
 
-            //AntivirusLibrary.SheduleScan.StartTimer();
-
-            Console.Read();
+            
+           
         }
     }
 }

@@ -189,6 +189,17 @@ namespace AntivirusLibrary
 
             DataBaseCloseConnection(sqliteConnection);
         }
+        public static void DataBaseDeleteNoteWhereAnd(string conditions, string tableName)
+        {
+            SqliteConnection sqliteConnection = DataBaseConnection();
+
+            var command = sqliteConnection.CreateCommand();
+            string str = $"DELETE FROM {tableName} {conditions}";
+            command.CommandText = str;
+            command.ExecuteNonQuery();
+
+            DataBaseCloseConnection(sqliteConnection);
+        }
 
         public static void DataBaseDeleteAllNotes(string tableName)
         {

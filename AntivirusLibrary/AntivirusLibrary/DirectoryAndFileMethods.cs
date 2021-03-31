@@ -30,25 +30,46 @@ namespace AntivirusLibrary
 
        public static List<String> GetAllFiles(string path)
         {
-            List<String> allFiles = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).ToList<String>(); //получаем все файлы
-            List<String> temp = new List<string>(); //делаем временный лист, куда добавляем файл из архивов
-            foreach (string file in allFiles) //идет по всем файлам чтобы найти архив
+            FileAttributes attr = File.GetAttributes(path);
+            if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
             {
-                if (GetFileType(file).Equals("zip")) //если находим архив
+                List<String> allFiles = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).ToList<String>(); //получаем все файлы
+                List<String> temp = new List<string>(); //делаем временный лист, куда добавляем файл из архивов
+                foreach (string file in allFiles) //идет по всем файлам чтобы найти архив
                 {
-                    temp.AddRange(GetFilesFromZip(file)); //добавляем в лист нужные файлы из архива
+                    if (GetFileType(file).Equals("zip")) //если находим архив
+                    {
+                        temp.AddRange(GetFilesFromZip(file)); //добавляем в лист нужные файлы из архива
+                    }
                 }
+                allFiles.AddRange(temp); //добавляем в основной лист файлы из архивов
+                return allFiles; //выходим
             }
-            allFiles.AddRange(temp); //добавляем в основной лист файлы из архивов
-            return allFiles; //выходим
+            else
+            {
+                List<string> files = new List<string>();
+                if (GetFileType(path).Equals("zip")) //если находим архив
+                {
+                    files.AddRange(GetFilesFromZip(path)); //добавляем в лист нужные файлы из архива
+                }
+                else files.Add(path);
+                return files;
+                
+            }
+            
         }
        public static List<String> GetFilesFromZip(string zipPath)
         {
 
-            string tempDir = "CheckZipFiles";
+            string tempDir = "D:\\CheckZipFiles";
             if (!Directory.Exists(tempDir))
                 Directory.CreateDirectory(tempDir); //создаем директорию для файлов из архивов
-
+            else
+            {
+                string directoria = "D:\\CheckZipFiles";
+                Directory.Delete(directoria, true);
+                Directory.CreateDirectory(tempDir);
+            }
             ZipFile.ExtractToDirectory(zipPath, tempDir); //разархивируем файлы в директорию
             List<String> allFiles = Directory.GetFiles(tempDir, "*.*", SearchOption.AllDirectories).ToList<String>();
             foreach (string file in allFiles) //идет по всем файлам чтобы найти архив
@@ -67,7 +88,8 @@ namespace AntivirusLibrary
         {
             string fileType = "";
             if (!File.Exists(file)) return "";
-            
+            try
+            {
                 using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
                     var buffer = new byte[10];
@@ -85,7 +107,11 @@ namespace AntivirusLibrary
                     }
                 }
                 return fileType;
-            
+            }
+            catch(Exception e)
+            {
+                return "";
+            }
           
         }
         

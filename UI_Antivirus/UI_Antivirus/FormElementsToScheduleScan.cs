@@ -14,6 +14,7 @@ namespace UI_Antivirus
         public TextBox TextBoxToScheduleScan;
         public Label TimeToScheduleScan;
         public Label DateToToScheduleScan;
+        public bool check = false;
         public FormElementsToScheduleScan(FlowLayoutPanel flowLayoutPanel)
         {
             PanelToScheduleScan = new System.Windows.Forms.Panel();
@@ -66,8 +67,26 @@ namespace UI_Antivirus
         private void PanelToScheduleScan_Click(object sender, EventArgs e)
         {
             if (PanelToScheduleScan.BackColor != Color.LightBlue)
+            {
                 PanelToScheduleScan.BackColor = Color.LightBlue;
-            else PanelToScheduleScan.BackColor = Color.White;
+                check = true;
+            }
+            else
+            {
+                PanelToScheduleScan.BackColor = Color.White;
+                check = false;
+            }
+
+        }
+        public void Select()
+        {
+            PanelToScheduleScan.BackColor = Color.LightBlue;
+            check = true;
+        }
+        public void DeletePanel(FlowLayoutPanel flowLayoutPanel)
+        {
+
+            flowLayoutPanel.Controls.Remove(PanelToScheduleScan);
         }
     }
 }

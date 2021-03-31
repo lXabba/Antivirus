@@ -60,9 +60,11 @@ namespace AntivirusLibrary
                 {
 
                     Quest quest = new Quest(int.Parse(mail.Split('|')[0]));
+
                     for (int i = 1; i <= int.Parse(mail.Split('|')[1].Split('?')[0]); i++)
                     {
                         quest.setPaths(mail.Split('|')[1].Split('?')[i]);
+                        Console.WriteLine(mail.Split('|')[1]);
                     }
                     for (int i = 1; i <= int.Parse(mail.Split('|')[2].Split('?')[0]); i++)
                     {
@@ -89,7 +91,7 @@ namespace AntivirusLibrary
                             StartMonitoring(quest);
                             break;
                         case 5:
-                            StopMonitoring(quest);
+                            StopMonitoring();
                             break;
                         case 6:
                             var status = GetScanStatus();
@@ -102,6 +104,10 @@ namespace AntivirusLibrary
                         case 8:
                             ScanMethods.StopScan();
                             break;
+
+                        case 9:
+                            Recover(quest);
+                            break;
                         default:
                             break;
                     }
@@ -111,9 +117,22 @@ namespace AntivirusLibrary
             }
         }
 
-       
+       private static void Recover(Quest quest)
+        {
+            List<string> paths = quest.getPaths();
+
+            foreach (string file in paths)
+            {
+                string date = DateTime.Now.ToString("MM/dd/yyyy");
+                string time = DateTime.Now.ToString("H:mm");
+                AntivirusLibrary.FileManipulation.FileManipulationRecover(file);
+                AntivirusLibrary.DataBaseMethods.DataBaseDeleteNote(file, "QUARANTINE");
+
+            }
+        }
        private static void StartScanDir(Quest quest)
         {
+            
             ScanStatus = true;
             Thread thread = new Thread(ThreadScan);
             thread.Start(quest);
@@ -154,7 +173,7 @@ namespace AntivirusLibrary
        private static void DeleteFiles(Quest quest)
         {
             List<string> paths = quest.getPaths();
-
+            quest.Show();
             foreach (string file in paths)
             {
                 var monitoringObject = GetMonitoringObject(file);
@@ -166,7 +185,7 @@ namespace AntivirusLibrary
 
                 AntivirusLibrary.DataBaseMethods.DataBaseDeleteNote(file, "Quarantine");
                 AntivirusLibrary.DataBaseMethods.DataBaseDeleteNote(file, "Schedule");
-
+                AntivirusLibrary.DataBaseMethods.DataBaseDeleteNote(file, "ScheduleReport");
                 AntivirusLibrary.FileManipulation.FileManipulationDelete(file);
             }
         }
@@ -181,6 +200,7 @@ namespace AntivirusLibrary
                 string time = DateTime.Now.ToString("H:mm");
                 AntivirusLibrary.FileManipulation.FileManipulationQuarantine(file);
                 AntivirusLibrary.DataBaseMethods.AddNote("QUARANTINE", "PATH,VIRUSTYPE,DATE,TIME", $"'{file}','virus','{date}','{time}'");
+                
             }
         }
 
@@ -205,13 +225,9 @@ namespace AntivirusLibrary
 
       private  static void StartMonitoring(Quest quest)
         {
-            List<string> paths = quest.getPaths();
-
-            foreach (string file in paths)
-            {
-                listMonitoring.Add(new MonitoringMethods(file));
-                AntivirusLibrary.DataBaseMethods.AddNote("MONITORING", "PATH", $"'{file}'");
-            }
+            //Thread monitorThread = new Thread(MailSlotServerMethods.StartMonitoringServer);
+            //monitorThread.Start();
+            MailSlotServerMethods.StartMonitoringServer();
         }
         public static void StartMonitoringServer()
         {
@@ -226,10 +242,10 @@ namespace AntivirusLibrary
             }
         }
         
-        private static void StopMonitoring(Quest quest)
+        private static void StopMonitoring()
         {
-            List<string> paths = quest.getPaths();
-           
+            List<string> paths = DataBaseMethods.DataBaseGetOneField("Monitoring", 1);
+
             foreach (string file in paths)
             {
                 var monitoringObject = GetMonitoringObject(file);
@@ -298,8 +314,8 @@ namespace AntivirusLibrary
                     {
                         if (ReadFile(handleS, buffer, 255, out nBytesRead, IntPtr.Zero))
                         {
-                            Console.WriteLine("Read mail: " + Encoding.ASCII.GetString(buffer).Replace("\0", ""));
-                            return Encoding.ASCII.GetString(buffer).Replace("\0", "");
+                            Console.WriteLine("Read mail: " + Encoding.UTF8.GetString(buffer).Replace("\0", ""));
+                            return Encoding.UTF8.GetString(buffer).Replace("\0", "");
                         }
                     }
                 }
@@ -312,7 +328,7 @@ namespace AntivirusLibrary
             CreateClientConnection();
             if (!handleC.Equals(new IntPtr(-1)))
             {
-                byte[] buffer = Encoding.ASCII.GetBytes(text);
+                byte[] buffer = Encoding.UTF8.GetBytes(text);
 
                 uint dwwr;
                 System.Threading.NativeOverlapped temp = new System.Threading.NativeOverlapped();
@@ -340,6 +356,7 @@ namespace AntivirusLibrary
         }
         public void setPaths(string path)
         {
+            Console.WriteLine("Show path " + path);
             paths.Add(path);
         }
         public void setOptions(string option)

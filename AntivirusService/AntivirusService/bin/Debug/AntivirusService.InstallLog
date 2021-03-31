@@ -1,0 +1,13 @@
+﻿Выполняется установка сборки 'D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\AntivirusService\AntivirusService\bin\Debug\AntivirusService.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\AntivirusService\AntivirusService\bin\Debug\AntivirusService.InstallLog
+   assemblypath = D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\AntivirusService\AntivirusService\bin\Debug\AntivirusService.exe
+Устанавливается служба AntivirusService...
+Служба AntivirusService успешно установлена.
+Создается исходный EventLog AntivirusService в журнале Application...
+Выполняется фиксация сборки 'D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\AntivirusService\AntivirusService\bin\Debug\AntivirusService.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\AntivirusService\AntivirusService\bin\Debug\AntivirusService.InstallLog
+   assemblypath = D:\3 семестр\Низкоуровневое\Антивирус\Antivirus\AntivirusService\AntivirusService\bin\Debug\AntivirusService.exe

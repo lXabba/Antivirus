@@ -15,6 +15,7 @@ namespace UI_Antivirus
         public Label SheduleLabelVirusType;
         public Label SheduleLabelTime;
         public Label SheduleLabelDate;
+        public bool check = false;
         public FormElementsShedule(FlowLayoutPanel flowLayoutPanel)
         {
             ShedulePanelAll = new System.Windows.Forms.Panel();
@@ -23,7 +24,7 @@ namespace UI_Antivirus
             SheduleLabelTime = new System.Windows.Forms.Label();
             SheduleLabelDate = new System.Windows.Forms.Label();
 
-            flowLayoutPanel.Controls.Add(SheduleLabelDate);
+            flowLayoutPanel.Controls.Add(ShedulePanelAll);
             // 
             // ShedulePanelAll
             // 
@@ -78,8 +79,25 @@ namespace UI_Antivirus
         {
 
             if (ShedulePanelAll.BackColor != Color.LightBlue)
+            {
                 ShedulePanelAll.BackColor = Color.LightBlue;
-            else ShedulePanelAll.BackColor = Color.White;
+                check = true;
+            }
+            else
+            {
+                ShedulePanelAll.BackColor = Color.White;
+                check = false;
+            }
+        }
+        public void DeletePanel(FlowLayoutPanel flowLayoutPanel)
+        {
+
+            flowLayoutPanel.Controls.Remove(ShedulePanelAll);
+        }
+        public void Select()
+        {
+            ShedulePanelAll.BackColor = Color.LightBlue;
+            check = true;
         }
     }
 }

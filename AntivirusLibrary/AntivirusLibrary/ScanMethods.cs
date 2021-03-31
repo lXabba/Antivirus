@@ -153,8 +153,8 @@ namespace AntivirusLibrary
                             string type = AntivirusLibrary.DataBaseMethods.DataBaseGetVirusType(str);
                             string date = DateTime.Now.ToString("MM/dd/yyyy");
                             string time = DateTime.Now.ToString("H:mm");
-                            AntivirusLibrary.DataBaseMethods.AddNote("SCAN", "PATH,VIRUSTYPE,DATE,TIME", $"'{filePath}','{type}','{date}','{time}'");
-                            AntivirusLibrary.DataBaseMethods.AddNote("SCANREPORT", "PATH,VIRUSTYPE,DATE,TIME", $"'{filePath}','{type}','{date}','{time}'");
+                            //AntivirusLibrary.DataBaseMethods.AddNote("SCAN", "PATH,VIRUSTYPE,DATE,TIME", $"'{filePath}','{type}','{date}','{time}'");
+                            AntivirusLibrary.DataBaseMethods.AddNote("SCHEDULEREPORT", "PATH,VIRUSTYPE,DATE,TIME", $"'{filePath}','{type}','{date}','{time}'");
                             Console.WriteLine("Virus");
                            
                             Console.WriteLine("End");

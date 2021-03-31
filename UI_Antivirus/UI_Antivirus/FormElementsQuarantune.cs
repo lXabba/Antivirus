@@ -94,5 +94,11 @@ namespace UI_Antivirus
             PanelQuarantine.Click -= new System.EventHandler(PanelQuarantine_Click);
             flowLayoutPanelQuarantune.Controls.Remove(PanelQuarantine);
         }
+
+        public void Select()
+        {
+            check = true;
+            PanelQuarantine.BackColor = Color.LightBlue;
+        }
     }
 }

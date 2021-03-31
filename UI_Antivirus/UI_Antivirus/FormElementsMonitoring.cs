@@ -15,7 +15,8 @@ namespace UI_Antivirus
        public Label DataMonitorLabel;
        public CheckBox ChangesMonitorLabel;
        public TextBox textBoxMonitor;
-        
+
+        public bool check = false;
 
         public FormElementsMonitoring(FlowLayoutPanel flowLayoutPanelMonitor)
         {
@@ -84,8 +85,15 @@ namespace UI_Antivirus
         private void PanelMonitoring_Click(object sender, EventArgs e)
         {
             if (PanelMonitoring.BackColor != Color.LightBlue)
+            {
                 PanelMonitoring.BackColor = Color.LightBlue;
-            else PanelMonitoring.BackColor = Color.White;
+                check = true;
+            }
+            else
+            {
+                PanelMonitoring.BackColor = Color.White;
+                check = false;
+            }
         }
         private void checkBox_CheckedChanged(object sender, EventArgs e)
         {
@@ -108,6 +116,11 @@ namespace UI_Antivirus
         {
 
             flowLayoutPanelMonitoring.Controls.Remove(PanelMonitoring);
+        }
+        public void Select()
+        {
+            PanelMonitoring.BackColor = Color.LightBlue;
+            check = true;
         }
     }
 }

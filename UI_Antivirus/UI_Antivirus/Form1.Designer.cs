@@ -34,7 +34,6 @@ namespace UI_Antivirus
             this.panel1 = new System.Windows.Forms.Panel();
             this.button11 = new System.Windows.Forms.Button();
             this.SendToQuarantine = new System.Windows.Forms.Button();
-            this.IgnorScan = new System.Windows.Forms.Button();
             this.DeleteAllScan = new System.Windows.Forms.Button();
             this.DeleteFileScan = new System.Windows.Forms.Button();
             this.ScanRunning = new System.Windows.Forms.Label();
@@ -50,9 +49,8 @@ namespace UI_Antivirus
             this.FileButtonScan = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.MonitorPanel = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.StopButton = new System.Windows.Forms.Button();
-            this.StartMonitoring = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.DeleteAllMonitoring = new System.Windows.Forms.Button();
             this.DeleteFileMonitoring = new System.Windows.Forms.Button();
             this.flowLayoutPanelMonitor = new System.Windows.Forms.FlowLayoutPanel();
@@ -61,8 +59,8 @@ namespace UI_Antivirus
             this.ChangesMonitorLabel = new System.Windows.Forms.Label();
             this.TimeMonitorLabel = new System.Windows.Forms.Label();
             this.DataMonitorLabel = new System.Windows.Forms.Label();
+            this.StartMonitoring = new System.Windows.Forms.Button();
             this.DirButtonMonitoring = new System.Windows.Forms.Button();
-            this.FileButtonMonitoring = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.ReportPanel = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -108,7 +106,7 @@ namespace UI_Antivirus
             this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPaneltoSScan = new System.Windows.Forms.FlowLayoutPanel();
             this.PanelToScheduleScan = new System.Windows.Forms.Panel();
             this.TextBoxToScheduleScan = new System.Windows.Forms.TextBox();
             this.TimeToScheduleScan = new System.Windows.Forms.Label();
@@ -116,7 +114,7 @@ namespace UI_Antivirus
             this.button2 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutScanSchedule = new System.Windows.Forms.FlowLayoutPanel();
             this.ShedulePanelAll = new System.Windows.Forms.Panel();
             this.SheduleTextBox = new System.Windows.Forms.TextBox();
             this.SheduleLabelVirusType = new System.Windows.Forms.Label();
@@ -125,6 +123,7 @@ namespace UI_Antivirus
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
+            this.button12 = new System.Windows.Forms.Button();
             this.ScanPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.flowLayoutPanelScan.SuspendLayout();
@@ -149,9 +148,9 @@ namespace UI_Antivirus
             ((System.ComponentModel.ISupportInitialize)(this.Minutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Hourse)).BeginInit();
             this.panel7.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
+            this.flowLayoutPaneltoSScan.SuspendLayout();
             this.PanelToScheduleScan.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.flowLayoutScanSchedule.SuspendLayout();
             this.ShedulePanelAll.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -170,11 +169,12 @@ namespace UI_Antivirus
             // ScanPanel
             // 
             this.ScanPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ScanPanel.Controls.Add(this.button12);
             this.ScanPanel.Controls.Add(this.panel1);
             this.ScanPanel.Controls.Add(this.DirButtonScan);
             this.ScanPanel.Controls.Add(this.FileButtonScan);
             this.ScanPanel.Controls.Add(this.label1);
-            this.ScanPanel.Location = new System.Drawing.Point(1032, 42);
+            this.ScanPanel.Location = new System.Drawing.Point(1125, 42);
             this.ScanPanel.Name = "ScanPanel";
             this.ScanPanel.Size = new System.Drawing.Size(830, 452);
             this.ScanPanel.TabIndex = 1;
@@ -184,7 +184,6 @@ namespace UI_Antivirus
             this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panel1.Controls.Add(this.button11);
             this.panel1.Controls.Add(this.SendToQuarantine);
-            this.panel1.Controls.Add(this.IgnorScan);
             this.panel1.Controls.Add(this.DeleteAllScan);
             this.panel1.Controls.Add(this.DeleteFileScan);
             this.panel1.Controls.Add(this.ScanRunning);
@@ -219,17 +218,6 @@ namespace UI_Antivirus
             this.SendToQuarantine.Text = "Карантин";
             this.SendToQuarantine.UseVisualStyleBackColor = false;
             this.SendToQuarantine.Click += new System.EventHandler(this.SendToQuarantine_Click);
-            // 
-            // IgnorScan
-            // 
-            this.IgnorScan.BackColor = System.Drawing.SystemColors.Window;
-            this.IgnorScan.Font = new System.Drawing.Font("Aznauri Square", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.IgnorScan.Location = new System.Drawing.Point(256, 297);
-            this.IgnorScan.Name = "IgnorScan";
-            this.IgnorScan.Size = new System.Drawing.Size(120, 23);
-            this.IgnorScan.TabIndex = 5;
-            this.IgnorScan.Text = "Игнорировать";
-            this.IgnorScan.UseVisualStyleBackColor = false;
             // 
             // DeleteAllScan
             // 
@@ -378,21 +366,32 @@ namespace UI_Antivirus
             // MonitorPanel
             // 
             this.MonitorPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.MonitorPanel.Controls.Add(this.StopButton);
             this.MonitorPanel.Controls.Add(this.panel4);
+            this.MonitorPanel.Controls.Add(this.StartMonitoring);
             this.MonitorPanel.Controls.Add(this.DirButtonMonitoring);
-            this.MonitorPanel.Controls.Add(this.FileButtonMonitoring);
             this.MonitorPanel.Controls.Add(this.label13);
-            this.MonitorPanel.Location = new System.Drawing.Point(1029, 247);
+            this.MonitorPanel.Location = new System.Drawing.Point(1350, 599);
             this.MonitorPanel.Name = "MonitorPanel";
             this.MonitorPanel.Size = new System.Drawing.Size(830, 455);
             this.MonitorPanel.TabIndex = 4;
             this.MonitorPanel.Visible = false;
             // 
+            // StopButton
+            // 
+            this.StopButton.BackColor = System.Drawing.SystemColors.Window;
+            this.StopButton.Font = new System.Drawing.Font("Aznauri Square", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.StopButton.Location = new System.Drawing.Point(456, 77);
+            this.StopButton.Name = "StopButton";
+            this.StopButton.Size = new System.Drawing.Size(112, 23);
+            this.StopButton.TabIndex = 7;
+            this.StopButton.Text = "Остановить";
+            this.StopButton.UseVisualStyleBackColor = false;
+            this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
+            // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.panel4.Controls.Add(this.StopButton);
-            this.panel4.Controls.Add(this.StartMonitoring);
             this.panel4.Controls.Add(this.DeleteAllMonitoring);
             this.panel4.Controls.Add(this.DeleteFileMonitoring);
             this.panel4.Controls.Add(this.flowLayoutPanelMonitor);
@@ -400,29 +399,6 @@ namespace UI_Antivirus
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(830, 323);
             this.panel4.TabIndex = 3;
-            // 
-            // StopButton
-            // 
-            this.StopButton.BackColor = System.Drawing.SystemColors.Window;
-            this.StopButton.Font = new System.Drawing.Font("Aznauri Square", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.StopButton.Location = new System.Drawing.Point(256, 297);
-            this.StopButton.Name = "StopButton";
-            this.StopButton.Size = new System.Drawing.Size(112, 23);
-            this.StopButton.TabIndex = 7;
-            this.StopButton.Text = "Остановить";
-            this.StopButton.UseVisualStyleBackColor = false;
-            // 
-            // StartMonitoring
-            // 
-            this.StartMonitoring.BackColor = System.Drawing.SystemColors.Window;
-            this.StartMonitoring.Font = new System.Drawing.Font("Aznauri Square", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.StartMonitoring.Location = new System.Drawing.Point(138, 297);
-            this.StartMonitoring.Name = "StartMonitoring";
-            this.StartMonitoring.Size = new System.Drawing.Size(112, 23);
-            this.StartMonitoring.TabIndex = 6;
-            this.StartMonitoring.Text = "Запустить";
-            this.StartMonitoring.UseVisualStyleBackColor = false;
-            this.StartMonitoring.Click += new System.EventHandler(this.StartMonitoring_Click);
             // 
             // DeleteAllMonitoring
             // 
@@ -434,6 +410,7 @@ namespace UI_Antivirus
             this.DeleteAllMonitoring.TabIndex = 5;
             this.DeleteAllMonitoring.Text = "Удалить все";
             this.DeleteAllMonitoring.UseVisualStyleBackColor = false;
+            this.DeleteAllMonitoring.Click += new System.EventHandler(this.DeleteAllMonitoring_Click);
             // 
             // DeleteFileMonitoring
             // 
@@ -505,28 +482,29 @@ namespace UI_Antivirus
             this.DataMonitorLabel.TabIndex = 0;
             this.DataMonitorLabel.Text = "18.03.21";
             // 
+            // StartMonitoring
+            // 
+            this.StartMonitoring.BackColor = System.Drawing.SystemColors.Window;
+            this.StartMonitoring.Font = new System.Drawing.Font("Aznauri Square", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.StartMonitoring.Location = new System.Drawing.Point(456, 44);
+            this.StartMonitoring.Name = "StartMonitoring";
+            this.StartMonitoring.Size = new System.Drawing.Size(112, 23);
+            this.StartMonitoring.TabIndex = 6;
+            this.StartMonitoring.Text = "Запустить";
+            this.StartMonitoring.UseVisualStyleBackColor = false;
+            this.StartMonitoring.Click += new System.EventHandler(this.StartMonitoring_Click);
+            // 
             // DirButtonMonitoring
             // 
             this.DirButtonMonitoring.BackColor = System.Drawing.SystemColors.Window;
             this.DirButtonMonitoring.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DirButtonMonitoring.Location = new System.Drawing.Point(256, 45);
+            this.DirButtonMonitoring.Location = new System.Drawing.Point(149, 45);
             this.DirButtonMonitoring.Name = "DirButtonMonitoring";
             this.DirButtonMonitoring.Size = new System.Drawing.Size(176, 57);
             this.DirButtonMonitoring.TabIndex = 2;
             this.DirButtonMonitoring.Text = "Директория";
             this.DirButtonMonitoring.UseVisualStyleBackColor = false;
             this.DirButtonMonitoring.Click += new System.EventHandler(this.DirButtonMonitoring_Click);
-            // 
-            // FileButtonMonitoring
-            // 
-            this.FileButtonMonitoring.BackColor = System.Drawing.SystemColors.Window;
-            this.FileButtonMonitoring.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FileButtonMonitoring.Location = new System.Drawing.Point(20, 45);
-            this.FileButtonMonitoring.Name = "FileButtonMonitoring";
-            this.FileButtonMonitoring.Size = new System.Drawing.Size(176, 57);
-            this.FileButtonMonitoring.TabIndex = 1;
-            this.FileButtonMonitoring.Text = "Файл";
-            this.FileButtonMonitoring.UseVisualStyleBackColor = false;
             // 
             // label13
             // 
@@ -765,7 +743,7 @@ namespace UI_Antivirus
             this.QuarantinePanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.QuarantinePanel.Controls.Add(this.panel6);
             this.QuarantinePanel.Controls.Add(this.label6);
-            this.QuarantinePanel.Location = new System.Drawing.Point(876, 669);
+            this.QuarantinePanel.Location = new System.Drawing.Point(1060, 90);
             this.QuarantinePanel.Name = "QuarantinePanel";
             this.QuarantinePanel.Size = new System.Drawing.Size(827, 410);
             this.QuarantinePanel.TabIndex = 8;
@@ -793,6 +771,7 @@ namespace UI_Antivirus
             this.button4.TabIndex = 8;
             this.button4.Text = "Удалить";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
@@ -804,6 +783,7 @@ namespace UI_Antivirus
             this.button3.TabIndex = 7;
             this.button3.Text = "Восстановить";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // QuarantineSelectAll
             // 
@@ -815,6 +795,7 @@ namespace UI_Antivirus
             this.QuarantineSelectAll.TabIndex = 6;
             this.QuarantineSelectAll.Text = "Выбрать все";
             this.QuarantineSelectAll.UseVisualStyleBackColor = false;
+            this.QuarantineSelectAll.Click += new System.EventHandler(this.QuarantineSelectAll_Click);
             // 
             // flowLayoutPanelQuarantine
             // 
@@ -959,11 +940,11 @@ namespace UI_Antivirus
             this.panel7.Controls.Add(this.button10);
             this.panel7.Controls.Add(this.button9);
             this.panel7.Controls.Add(this.button1);
-            this.panel7.Controls.Add(this.flowLayoutPanel2);
+            this.panel7.Controls.Add(this.flowLayoutPaneltoSScan);
             this.panel7.Controls.Add(this.button2);
             this.panel7.Controls.Add(this.button5);
             this.panel7.Controls.Add(this.button6);
-            this.panel7.Controls.Add(this.flowLayoutPanel1);
+            this.panel7.Controls.Add(this.flowLayoutScanSchedule);
             this.panel7.Location = new System.Drawing.Point(0, 108);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(830, 323);
@@ -979,6 +960,7 @@ namespace UI_Antivirus
             this.button10.TabIndex = 8;
             this.button10.Text = "Выбрать все";
             this.button10.UseVisualStyleBackColor = false;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button9
             // 
@@ -990,6 +972,7 @@ namespace UI_Antivirus
             this.button9.TabIndex = 7;
             this.button9.Text = "Удалить";
             this.button9.UseVisualStyleBackColor = false;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button1
             // 
@@ -1001,15 +984,16 @@ namespace UI_Antivirus
             this.button1.TabIndex = 6;
             this.button1.Text = "Карантин";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // flowLayoutPanel2
+            // flowLayoutPaneltoSScan
             // 
-            this.flowLayoutPanel2.AutoScroll = true;
-            this.flowLayoutPanel2.Controls.Add(this.PanelToScheduleScan);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(20, 4);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(775, 122);
-            this.flowLayoutPanel2.TabIndex = 3;
+            this.flowLayoutPaneltoSScan.AutoScroll = true;
+            this.flowLayoutPaneltoSScan.Controls.Add(this.PanelToScheduleScan);
+            this.flowLayoutPaneltoSScan.Location = new System.Drawing.Point(20, 4);
+            this.flowLayoutPaneltoSScan.Name = "flowLayoutPaneltoSScan";
+            this.flowLayoutPaneltoSScan.Size = new System.Drawing.Size(775, 122);
+            this.flowLayoutPaneltoSScan.TabIndex = 3;
             // 
             // PanelToScheduleScan
             // 
@@ -1059,6 +1043,7 @@ namespace UI_Antivirus
             this.button2.TabIndex = 5;
             this.button2.Text = "Игнорировать";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button5
             // 
@@ -1070,6 +1055,7 @@ namespace UI_Antivirus
             this.button5.TabIndex = 5;
             this.button5.Text = "Выбрать все";
             this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
@@ -1083,14 +1069,14 @@ namespace UI_Antivirus
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // flowLayoutPanel1
+            // flowLayoutScanSchedule
             // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Controls.Add(this.ShedulePanelAll);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 168);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(775, 123);
-            this.flowLayoutPanel1.TabIndex = 2;
+            this.flowLayoutScanSchedule.AutoScroll = true;
+            this.flowLayoutScanSchedule.Controls.Add(this.ShedulePanelAll);
+            this.flowLayoutScanSchedule.Location = new System.Drawing.Point(20, 168);
+            this.flowLayoutScanSchedule.Name = "flowLayoutScanSchedule";
+            this.flowLayoutScanSchedule.Size = new System.Drawing.Size(775, 123);
+            this.flowLayoutScanSchedule.TabIndex = 2;
             // 
             // ShedulePanelAll
             // 
@@ -1162,6 +1148,7 @@ namespace UI_Antivirus
             this.button8.TabIndex = 1;
             this.button8.Text = "Файл";
             this.button8.UseVisualStyleBackColor = false;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // label10
             // 
@@ -1172,6 +1159,18 @@ namespace UI_Antivirus
             this.label10.Size = new System.Drawing.Size(289, 15);
             this.label10.TabIndex = 0;
             this.label10.Text = "Сканирование по расписанию";
+            // 
+            // button12
+            // 
+            this.button12.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button12.Font = new System.Drawing.Font("Aznauri Square", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button12.Location = new System.Drawing.Point(628, 69);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(167, 33);
+            this.button12.TabIndex = 4;
+            this.button12.Text = "Обновить";
+            this.button12.UseVisualStyleBackColor = false;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // Form1
             // 
@@ -1231,10 +1230,10 @@ namespace UI_Antivirus
             ((System.ComponentModel.ISupportInitialize)(this.Minutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Hourse)).EndInit();
             this.panel7.ResumeLayout(false);
-            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPaneltoSScan.ResumeLayout(false);
             this.PanelToScheduleScan.ResumeLayout(false);
             this.PanelToScheduleScan.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutScanSchedule.ResumeLayout(false);
             this.ShedulePanelAll.ResumeLayout(false);
             this.ShedulePanelAll.PerformLayout();
             this.ResumeLayout(false);
@@ -1257,7 +1256,6 @@ namespace UI_Antivirus
         private System.Windows.Forms.Label TimeScanLabel;
         private System.Windows.Forms.Label DataScanLabel;
         private System.Windows.Forms.Button SendToQuarantine;
-        private System.Windows.Forms.Button IgnorScan;
         private System.Windows.Forms.Button DeleteAllScan;
         private System.Windows.Forms.Button DeleteFileScan;
         private System.Windows.Forms.Label ScanRunning;
@@ -1270,7 +1268,6 @@ namespace UI_Antivirus
         private System.Windows.Forms.Label TimeMonitorLabel;
         private System.Windows.Forms.Label DataMonitorLabel;
         private System.Windows.Forms.Button DirButtonMonitoring;
-        private System.Windows.Forms.Button FileButtonMonitoring;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button MonitorPanelButton;
         private System.Windows.Forms.Panel ReportPanel;
@@ -1322,7 +1319,7 @@ namespace UI_Antivirus
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutScanSchedule;
         private System.Windows.Forms.Panel ShedulePanelAll;
         private System.Windows.Forms.TextBox SheduleTextBox;
         private System.Windows.Forms.Label SheduleLabelVirusType;
@@ -1333,12 +1330,13 @@ namespace UI_Antivirus
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPaneltoSScan;
         private System.Windows.Forms.Panel PanelToScheduleScan;
         private System.Windows.Forms.TextBox TextBoxToScheduleScan;
         private System.Windows.Forms.Label TimeToScheduleScan;
         private System.Windows.Forms.Label DateToToScheduleScan;
         private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button12;
     }
 }
 
